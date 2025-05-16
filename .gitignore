@@ -37,6 +37,40 @@ frontend/libpeerconnection.log
 frontend/testem.log
 frontend/typings
 
+# === Backend ignores ===
+api/HELP.md
+
+# Maven
+api/target/
+!api/.mvn/wrapper/maven-wrapper.jar
+!api/**/src/main/**/target/
+!api/**/src/test/**/target/
+
+### Backend - STS ###
+api/.apt_generated
+api/.classpath
+api/.factorypath
+api/.project
+api/.settings
+api/.springBeans
+api/.sts4-cache
+
+### Backend - IntelliJ IDEA ###
+api/.idea
+api/*.iws
+api/*.iml
+api/*.ipr
+
+### Backend - NetBeans ###
+api/nbproject/private/
+api/nbbuild/
+api/dist/
+api/nbdist/
+api/.nb-gradle/
+api/build/
+!api/**/src/main/**/build/
+!api/**/src/test/**/build/
+
 # === Global ignores ===
 *.log
 .DS_Store
@@ -50,3 +84,6 @@ Thumbs.db
 
 # Environment-dependent path to Maven home directory
 /mavenHomeManager.xml
+
+### VS Code ###
+.vscode/
