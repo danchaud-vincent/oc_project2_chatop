@@ -18,4 +18,8 @@ public class RentalService {
         return rentalRepository.findAll();
     }
 
+    public Rental addRental(Rental rental) {
+        return rentalRepository.save(rental);
+    }
+
 }
