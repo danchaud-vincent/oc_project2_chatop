@@ -39,7 +39,17 @@ public class RentalController {
 
     @PostMapping("/rentals")
     public Rental addRental(@RequestBody Rental rental) {
-        return rentalService.addRental(rental);
+
+        try{
+            Rental newRental = rentalService.addRental(rental);
+
+            return newRental;
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+            return new Rental();
+        } 
     }
 
     @PutMapping("/rentals/{rentalId}")
