@@ -3,6 +3,7 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.model.Rental;
+import com.chatop.api.model.User;
 import com.chatop.api.service.RentalService;
 
 import java.util.List;
@@ -38,7 +39,6 @@ public class RentalController {
 
     @PostMapping("/rentals")
     public Rental addRental(@RequestBody Rental rental) {
-    
         return rentalService.addRental(rental);
     }
 

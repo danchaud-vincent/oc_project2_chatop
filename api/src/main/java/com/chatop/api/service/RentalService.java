@@ -19,6 +19,9 @@ public class RentalService {
     }
 
     public Rental addRental(Rental rental) {
+
+        
+
         return rentalRepository.save(rental);
     }
 

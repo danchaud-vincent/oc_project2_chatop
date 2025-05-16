@@ -7,6 +7,4 @@ import com.chatop.api.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-
-
 }
