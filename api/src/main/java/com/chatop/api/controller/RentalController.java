@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -35,9 +37,16 @@ public class RentalController {
     }
 
     @PostMapping("/rentals")
-    public String addRental(@RequestBody String entity) {
+    public Rental addRental(@RequestBody Rental rental) {
     
-        return "Add a rental to rentals";
+        return rentalService.addRental(rental);
+    }
+
+    @PutMapping("/rentals/{rentalId}")
+    public String putMethodName(@PathVariable int rentalId, @RequestBody Rental entity) {
+        //TODO: process PUT request
+        
+        return "Rental updated";
     }
 
 }
