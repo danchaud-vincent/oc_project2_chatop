@@ -53,10 +53,18 @@ public class RentalController {
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public String putMethodName(@PathVariable int rentalId, @RequestBody Rental entity) {
-        //TODO: process PUT request
+    public Rental updateRental(@PathVariable int rentalId, @RequestBody Rental rental) {
         
-        return "Rental updated";
+        try {
+            
+            Rental updatedRental = rentalService.updateRental(rentalId, rental);
+            return updatedRental;
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            
+            return null;
+        }
     }
 
 }

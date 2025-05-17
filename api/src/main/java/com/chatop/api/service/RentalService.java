@@ -40,4 +40,18 @@ public class RentalService {
         
     }
 
+    public Rental updateRental(int rentalId, Rental rental) {
+
+        User user = userRepository
+                .findById(rental.getOwnerId().getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        
+        rental.setOwnerId(user);
+
+        return rentalRepository.save(rental);
+    }
+
+
+
 }
