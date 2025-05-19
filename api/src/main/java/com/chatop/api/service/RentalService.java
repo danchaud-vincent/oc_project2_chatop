@@ -3,11 +3,15 @@ package com.chatop.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chatop.api.controller.RentalController;
+import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
+import com.chatop.api.mapper.RentalMapper;
 import com.chatop.api.model.Rental;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.RentalRepository;
@@ -23,6 +27,10 @@ public class RentalService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    RentalMapper rentalMapper;
+
+
     public List<RentalDto> getRentals() {
 
         List<RentalDto> rentalsDto = new ArrayList<RentalDto>();
@@ -31,7 +39,7 @@ public class RentalService {
 
         for(Rental rental: rentals){
 
-            RentalDto rentalDto = toDto(rental);
+            RentalDto rentalDto = rentalMapper.toDto(rental);
 
             rentalsDto.add(rentalDto);
         }
@@ -43,55 +51,10 @@ public class RentalService {
         Rental rental = rentalRepository.findById(rentalId)
             .orElseThrow(() -> new RuntimeException("Rental not found with ID: " + rentalId));
 
-        return toDto(rental);
+        return rentalMapper.toDto(rental);
     }
 
-    public Rental addRental(RentalDto rentalDto) {
-
-        Rental rental = toRentalEntity(rentalDto);
-        
-        return rentalRepository.save(rental);
-    }
-
-    public Rental updateRental(int rentalId, RentalUpdateDto rentalDto) {
-
-        Rental rental = rentalRepository.findById(rentalId)
-            .orElseThrow(() -> new RuntimeException("Rental not found with ID " + rentalId));
-
-        // Integer ownerId = rental.getOwner().getId();
-
-        // User user = userRepository
-        //         .findById(ownerId)
-        //         .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
-
-        
-        rental.setName(rentalDto.getName());
-        rental.setSurface(rentalDto.getSurface()); 
-        rental.setPrice(rentalDto.getPrice());
-        rental.setDescription(rentalDto.getDescription());
-        // rental.setOwner(user);
-
-        return rentalRepository.save(rental);
-    }
-
-    private RentalDto toDto(Rental rental){
-        RentalDto rentalDto = new RentalDto();
-
-        rentalDto.setId(rental.getId());
-        rentalDto.setName(rental.getName());
-        rentalDto.setSurface(rental.getSurface());
-        rentalDto.setPrice(rental.getPrice());
-        rentalDto.setDescription(rental.getDescription());
-        rentalDto.setPicture(rental.getPicture());
-        rentalDto.setOwnerId(rental.getOwner().getId());
-        rentalDto.setCreatedAt(rental.getCreatedAt());
-        rentalDto.setUpdatedat(rental.getUpdatedAt());
-
-        return rentalDto;
-    }
-
-    private Rental toRentalEntity(RentalDto rentalDto){
-        Rental rental = new Rental();
+    public Rental addRental(RentalCreateDto rentalDto) {
 
         Integer ownerId = rentalDto.getOwnerId();
 
@@ -99,16 +62,21 @@ public class RentalService {
             .findById(ownerId)
             .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
 
-        rental.setName(rentalDto.getName());
-        rental.setDescription(rentalDto.getDescription());
-        rental.setSurface(rentalDto.getSurface());
-        rental.setPrice(rentalDto.getPrice());
-        rental.setPicture(rentalDto.getPicture());
+        Rental rental = rentalMapper.toEntity(rentalDto);
         rental.setOwner(user);
-
-        return rental;
+        
+        return rentalRepository.save(rental);
     }
 
+    public Rental updateRental(int rentalId, RentalUpdateDto rentalUpdatedDto) {
+
+        Rental oldRental = rentalRepository.findById(rentalId)
+            .orElseThrow(() -> new RuntimeException("Rental not found with ID " + rentalId));
+
+        Rental updatedRental = rentalMapper.updateEntity(oldRental, rentalUpdatedDto);
+
+        return rentalRepository.save(updatedRental);
+    }
 
 
 }
