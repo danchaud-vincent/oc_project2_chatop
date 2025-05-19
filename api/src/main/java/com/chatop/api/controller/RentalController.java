@@ -2,6 +2,7 @@ package com.chatop.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
 import com.chatop.api.model.Rental;
@@ -40,7 +41,7 @@ public class RentalController {
     }
 
     @PostMapping("/rentals")
-    public ResponseEntity<String> addRental(@RequestBody RentalDto rentalDto) {
+    public ResponseEntity<String> addRental(@RequestBody RentalCreateDto rentalDto) {
 
         Rental newRental = rentalService.addRental(rentalDto);
 
