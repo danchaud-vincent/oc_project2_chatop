@@ -33,8 +33,8 @@ public class RentalController {
     }
 
     @GetMapping("/rentals/{rentalId}")
-    public String getRentalById(@PathVariable int rentalId) {
-        return "a rental";
+    public RentalDto getRentalById(@PathVariable int rentalId) {
+        return rentalService.getRentalById(rentalId);
     }
 
     @PostMapping("/rentals")
