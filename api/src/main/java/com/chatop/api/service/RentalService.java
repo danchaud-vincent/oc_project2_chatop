@@ -1,5 +1,6 @@
 package com.chatop.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,28 @@ public class RentalService {
     @Autowired
     UserRepository userRepository;
 
-    public List<Rental> getRentals() {
-        return rentalRepository.findAll();
+    public List<RentalDto> getRentals() {
+
+        List<RentalDto> rentalsDto = new ArrayList<RentalDto>();
+
+        List<Rental> rentals = rentalRepository.findAll();
+        for(Rental rental: rentals){
+
+            RentalDto rentalDto = new RentalDto(
+                rental.getName(),
+                rental.getSurface(), 
+                rental.getPrice(), 
+                rental.getDescription(), 
+                rental.getPicture(), 
+                rental.getOwner().getId(), 
+                rental.getCreatedAt(), 
+                rental.getUpdatedAt()
+            );
+
+            rentalsDto.add(rentalDto);
+        }
+
+        return rentalsDto;
     }
 
     public Rental addRental(Rental rental) {
