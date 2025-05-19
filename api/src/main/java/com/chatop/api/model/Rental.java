@@ -27,7 +27,7 @@ public class Rental {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private BigDecimal surface;
     private BigDecimal price;
