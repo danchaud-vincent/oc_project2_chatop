@@ -40,18 +40,11 @@ public class RentalController {
     }
 
     @PostMapping("/rentals")
-    public Rental addRental(@RequestBody Rental rental) {
+    public ResponseEntity<String> addRental(@RequestBody RentalDto rentalDto) {
 
-        try{
-            Rental newRental = rentalService.addRental(rental);
+        Rental newRental = rentalService.addRental(rentalDto);
 
-            return newRental;
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-
-            return new Rental();
-        } 
+        return new ResponseEntity<String>("Rental created!", HttpStatus.OK);
     }
 
     @PutMapping("/rentals/{rentalId}")
