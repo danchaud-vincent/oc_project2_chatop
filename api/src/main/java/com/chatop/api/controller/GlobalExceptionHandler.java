@@ -1,0 +1,18 @@
+package com.chatop.api.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleNotFoundException(RuntimeException exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+
+}
