@@ -28,11 +28,11 @@ public class RentalService {
     public Rental addRental(Rental rental) {
 
         User user = userRepository
-            .findById(rental.getOwnerId().getId())
+            .findById(rental.getOwner().getId())
             .orElseThrow(() -> new RuntimeException("User not found"));
 
         
-        rental.setOwnerId(user);
+        rental.setOwner(user);
         rental.setCreatedAt(new Date());
         rental.setUpdatedAt(new Date());
 
@@ -43,11 +43,11 @@ public class RentalService {
     public Rental updateRental(int rentalId, Rental rental) {
 
         User user = userRepository
-                .findById(rental.getOwnerId().getId())
+                .findById(rental.getOwner().getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         
-        rental.setOwnerId(user);
+        rental.setOwner(user);
 
         return rentalRepository.save(rental);
     }
