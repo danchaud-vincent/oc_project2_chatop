@@ -2,6 +2,7 @@ package com.chatop.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.dto.RentalDto;
 import com.chatop.api.model.Rental;
 import com.chatop.api.service.RentalService;
 
@@ -52,17 +53,22 @@ public class RentalController {
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public Rental updateRental(@PathVariable int rentalId, @RequestBody Rental rental) {
+    public String updateRental(@PathVariable int rentalId, @RequestBody Rental rental) {
        
+        RentalDto updatedRental = null;
+
         try {
-            
-            Rental updatedRental = rentalService.updateRental(rentalId, rental);
-            return updatedRental;
+            updatedRental = rentalService.updateRental(rentalId, rental);
             
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            
-            return null;
+            throw new RuntimeException(e);
+        }
+
+        if (updatedRental != null){
+            return "Updated!";
+        }
+        else{
+            return "Failed to update!";
         }
     }
 

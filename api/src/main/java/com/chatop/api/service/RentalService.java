@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chatop.api.dto.RentalDto;
 import com.chatop.api.model.Rental;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.RentalRepository;
@@ -37,7 +38,7 @@ public class RentalService {
         
     }
 
-    public Rental updateRental(int rentalId, Rental rental) {
+    public RentalDto updateRental(int rentalId, Rental rental) {
 
         User user = userRepository
                 .findById(rental.getOwner().getId())
@@ -45,8 +46,24 @@ public class RentalService {
 
         
         rental.setOwner(user);
+        rentalRepository.save(rental);
 
-        return rentalRepository.save(rental);
+        return toDto(rental);
+    }
+
+    private RentalDto toDto(Rental rental){
+        RentalDto rentalDto = new RentalDto();
+
+        rentalDto.setName(rental.getName());
+        rentalDto.setSurface(rental.getSurface());
+        rentalDto.setPrice(rental.getPrice());
+        rentalDto.setDescription(rental.getDescription());
+        rentalDto.setPicture(rental.getPicture());
+        rentalDto.setOwnerId(rental.getOwner().getId());
+        rentalDto.setCreatedAt(rental.getCreatedAt());
+        rentalDto.setUpdatedat(rental.getUpdatedAt());
+
+        return rentalDto;
     }
 
 
