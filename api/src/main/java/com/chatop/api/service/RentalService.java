@@ -30,6 +30,7 @@ public class RentalService {
         for(Rental rental: rentals){
 
             RentalDto rentalDto = new RentalDto(
+                rental.getId(),
                 rental.getName(),
                 rental.getSurface(), 
                 rental.getPrice(), 
