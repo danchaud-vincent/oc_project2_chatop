@@ -53,12 +53,12 @@ public class RentalController {
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public String updateRental(@PathVariable int rentalId, @RequestBody Rental rental) {
+    public String updateRental(@PathVariable int rentalId, @RequestBody RentalDto rentalDto) {
        
-        RentalDto updatedRental = null;
+        Rental updatedRental = null;
 
         try {
-            updatedRental = rentalService.updateRental(rentalId, rental);
+            updatedRental = rentalService.updateRental(rentalId, rentalDto);
             
         } catch (Exception e) {
             throw new RuntimeException(e);

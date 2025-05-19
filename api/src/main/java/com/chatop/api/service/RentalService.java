@@ -27,24 +27,22 @@ public class RentalService {
         List<RentalDto> rentalsDto = new ArrayList<RentalDto>();
 
         List<Rental> rentals = rentalRepository.findAll();
+
         for(Rental rental: rentals){
 
-            RentalDto rentalDto = new RentalDto(
-                rental.getId(),
-                rental.getName(),
-                rental.getSurface(), 
-                rental.getPrice(), 
-                rental.getDescription(), 
-                rental.getPicture(), 
-                rental.getOwner().getId(), 
-                rental.getCreatedAt(), 
-                rental.getUpdatedAt()
-            );
+            RentalDto rentalDto = toDto(rental);
 
             rentalsDto.add(rentalDto);
         }
 
         return rentalsDto;
+    }
+
+     public RentalDto getRentalById(int rentalId) {
+        Rental rental = rentalRepository.findById(rentalId)
+            .orElseThrow(() -> new RuntimeException("Rental not found!"));
+
+        return toDto(rental);
     }
 
     public Rental addRental(Rental rental) {
@@ -60,22 +58,30 @@ public class RentalService {
         
     }
 
-    public RentalDto updateRental(int rentalId, Rental rental) {
+    public Rental updateRental(int rentalId, RentalDto rentalDto) {
+
+        Rental rental = rentalRepository.findById(rentalId)
+            .orElseThrow(() -> new RuntimeException("Rental not found"));
 
         User user = userRepository
-                .findById(rental.getOwner().getId())
+                .findById(rentalDto.getOwnerId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         
+        rental.setName(rentalDto.getName());
+        rental.setSurface(rentalDto.getSurface()); 
+        rental.setPrice(rentalDto.getPrice());
+        rental.setPicture(rentalDto.getPicture());
+        rental.setDescription(rentalDto.getDescription());
         rental.setOwner(user);
-        rentalRepository.save(rental);
 
-        return toDto(rental);
+        return rentalRepository.save(rental);
     }
 
     private RentalDto toDto(Rental rental){
         RentalDto rentalDto = new RentalDto();
 
+        rentalDto.setId(rental.getId());
         rentalDto.setName(rental.getName());
         rentalDto.setSurface(rental.getSurface());
         rentalDto.setPrice(rental.getPrice());
@@ -87,7 +93,6 @@ public class RentalService {
 
         return rentalDto;
     }
-
 
 
 }
