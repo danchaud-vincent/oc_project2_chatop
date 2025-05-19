@@ -46,19 +46,11 @@ public class RentalService {
         return toDto(rental);
     }
 
-    public Rental addRental(Rental rental) {
+    public Rental addRental(RentalDto rentalDto) {
 
-        Integer ownerId = rental.getOwner().getId();
-
-        User user = userRepository
-            .findById(ownerId)
-            .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
-
+        Rental rental = toRentalEntity(rentalDto);
         
-        rental.setOwner(user);
-
         return rentalRepository.save(rental);
-        
     }
 
     public Rental updateRental(int rentalId, RentalUpdateDto rentalDto) {
@@ -66,18 +58,18 @@ public class RentalService {
         Rental rental = rentalRepository.findById(rentalId)
             .orElseThrow(() -> new RuntimeException("Rental not found with ID " + rentalId));
 
-        Integer ownerId = rental.getOwner().getId();
+        // Integer ownerId = rental.getOwner().getId();
 
-        User user = userRepository
-                .findById(ownerId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
+        // User user = userRepository
+        //         .findById(ownerId)
+        //         .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
 
         
         rental.setName(rentalDto.getName());
         rental.setSurface(rentalDto.getSurface()); 
         rental.setPrice(rentalDto.getPrice());
         rental.setDescription(rentalDto.getDescription());
-        rental.setOwner(user);
+        // rental.setOwner(user);
 
         return rentalRepository.save(rental);
     }
@@ -97,6 +89,26 @@ public class RentalService {
 
         return rentalDto;
     }
+
+    private Rental toRentalEntity(RentalDto rentalDto){
+        Rental rental = new Rental();
+
+        Integer ownerId = rentalDto.getOwnerId();
+
+        User user = userRepository
+            .findById(ownerId)
+            .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
+
+        rental.setName(rentalDto.getName());
+        rental.setDescription(rentalDto.getDescription());
+        rental.setSurface(rentalDto.getSurface());
+        rental.setPrice(rentalDto.getPrice());
+        rental.setPicture(rentalDto.getPicture());
+        rental.setOwner(user);
+
+        return rental;
+    }
+
 
 
 }
