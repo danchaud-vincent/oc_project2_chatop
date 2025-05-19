@@ -3,7 +3,6 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.model.Rental;
-import com.chatop.api.model.User;
 import com.chatop.api.service.RentalService;
 
 import java.util.List;
@@ -54,7 +53,7 @@ public class RentalController {
 
     @PutMapping("/rentals/{rentalId}")
     public Rental updateRental(@PathVariable int rentalId, @RequestBody Rental rental) {
-        
+       
         try {
             
             Rental updatedRental = rentalService.updateRental(rentalId, rental);
