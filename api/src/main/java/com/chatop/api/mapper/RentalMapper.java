@@ -6,7 +6,6 @@ import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
 import com.chatop.api.model.Rental;
-import com.chatop.api.model.User;
 
 @Component
 public class RentalMapper {
