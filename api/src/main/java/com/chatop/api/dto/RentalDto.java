@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RentalDto {
 
+    private int id;
     private String name;
     private BigDecimal surface;
     private BigDecimal price;
