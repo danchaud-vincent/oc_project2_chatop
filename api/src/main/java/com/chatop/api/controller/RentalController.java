@@ -35,14 +35,8 @@ public class RentalController {
     }
 
     @GetMapping("/rentals/{rentalId}")
-    public ResponseEntity<?> getRentalById(@PathVariable int rentalId) {
-
-        try{
-            return new ResponseEntity<RentalDto>(rentalService.getRentalById(rentalId), HttpStatus.OK);
-        }
-        catch (Exception e){
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }  
+    public ResponseEntity<RentalDto> getRentalById(@PathVariable int rentalId) {
+        return new ResponseEntity<RentalDto>(rentalService.getRentalById(rentalId), HttpStatus.OK);
     }
 
     @PostMapping("/rentals")
