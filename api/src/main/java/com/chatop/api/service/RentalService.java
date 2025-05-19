@@ -1,6 +1,5 @@
 package com.chatop.api.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,6 @@ public class RentalService {
 
         
         rental.setOwner(user);
-        rental.setCreatedAt(new Date());
-        rental.setUpdatedAt(new Date());
 
         return rentalRepository.save(rental);
         
