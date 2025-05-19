@@ -3,6 +3,7 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.dto.RentalDto;
+import com.chatop.api.dto.RentalUpdateDto;
 import com.chatop.api.model.Rental;
 import com.chatop.api.service.RentalService;
 
@@ -53,7 +54,7 @@ public class RentalController {
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public String updateRental(@PathVariable int rentalId, @RequestBody RentalDto rentalDto) {
+    public String updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
        
         Rental updatedRental = null;
 

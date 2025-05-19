@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.RentalDto;
+import com.chatop.api.dto.RentalUpdateDto;
 import com.chatop.api.model.Rental;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.RentalRepository;
@@ -58,20 +59,19 @@ public class RentalService {
         
     }
 
-    public Rental updateRental(int rentalId, RentalDto rentalDto) {
+    public Rental updateRental(int rentalId, RentalUpdateDto rentalDto) {
 
         Rental rental = rentalRepository.findById(rentalId)
             .orElseThrow(() -> new RuntimeException("Rental not found"));
 
         User user = userRepository
-                .findById(rentalDto.getOwnerId())
+                .findById(rental.getOwner().getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         
         rental.setName(rentalDto.getName());
         rental.setSurface(rentalDto.getSurface()); 
         rental.setPrice(rentalDto.getPrice());
-        rental.setPicture(rentalDto.getPicture());
         rental.setDescription(rentalDto.getDescription());
         rental.setOwner(user);
 
