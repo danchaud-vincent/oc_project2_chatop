@@ -27,7 +27,7 @@ public class RentalController {
     RentalService rentalService;
 
     @GetMapping("/rentals")
-    public List<Rental> getRentals(){
+    public List<RentalDto> getRentals(){
 
         return rentalService.getRentals();
     }
