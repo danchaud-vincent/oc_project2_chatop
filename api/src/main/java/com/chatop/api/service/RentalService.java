@@ -41,16 +41,18 @@ public class RentalService {
 
      public RentalDto getRentalById(int rentalId) {
         Rental rental = rentalRepository.findById(rentalId)
-            .orElseThrow(() -> new RuntimeException("Rental not found!"));
+            .orElseThrow(() -> new RuntimeException("Rental not found with ID: " + rentalId));
 
         return toDto(rental);
     }
 
     public Rental addRental(Rental rental) {
 
+        Integer ownerId = rental.getOwner().getId();
+
         User user = userRepository
-            .findById(rental.getOwner().getId())
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .findById(ownerId)
+            .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
 
         
         rental.setOwner(user);
@@ -62,11 +64,13 @@ public class RentalService {
     public Rental updateRental(int rentalId, RentalUpdateDto rentalDto) {
 
         Rental rental = rentalRepository.findById(rentalId)
-            .orElseThrow(() -> new RuntimeException("Rental not found"));
+            .orElseThrow(() -> new RuntimeException("Rental not found with ID " + rentalId));
+
+        Integer ownerId = rental.getOwner().getId();
 
         User user = userRepository
-                .findById(rental.getOwner().getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .findById(ownerId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
 
         
         rental.setName(rentalDto.getName());
