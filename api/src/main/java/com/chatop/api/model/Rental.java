@@ -33,7 +33,7 @@ public class Rental {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
-    private User ownerId;
+    private User owner;
 
     @Column(name = "created_at")
     private Date createdAt;
