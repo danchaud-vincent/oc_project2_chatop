@@ -48,23 +48,10 @@ public class RentalController {
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public String updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
+    public ResponseEntity<String> updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
        
-        Rental updatedRental = null;
+        Rental updatedRental = rentalService.updateRental(rentalId, rentalDto);
 
-        try {
-            updatedRental = rentalService.updateRental(rentalId, rentalDto);
-            
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        if (updatedRental != null){
-            return "Updated!";
-        }
-        else{
-            return "Failed to update!";
-        }
+        return new ResponseEntity<>("Rental updated!", HttpStatus.OK);
     }
-
 }
