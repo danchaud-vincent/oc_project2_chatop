@@ -11,6 +11,7 @@ import com.chatop.api.service.RentalService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,18 +43,23 @@ public class RentalController {
     }
 
     @PostMapping("/rentals")
-    public ResponseEntity<String> addRental(@RequestBody RentalCreateDto rentalDto) {
+    public ResponseEntity<Map<String, String>> addRental(@RequestBody RentalCreateDto rentalDto) {
 
-        Rental newRental = rentalService.addRental(rentalDto);
+        rentalService.addRental(rentalDto);
 
-        return new ResponseEntity<String>("Rental created!", HttpStatus.OK);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Map.of("message", "Rental created!"));
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public ResponseEntity<String> updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
+    public ResponseEntity<Map<String, String>> updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
        
-        Rental updatedRental = rentalService.updateRental(rentalId, rentalDto);
+        rentalService.updateRental(rentalId, rentalDto);
 
-        return new ResponseEntity<>("Rental updated!", HttpStatus.OK);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Map.of("message", "Rental updated!"));
+        
     }
 }
