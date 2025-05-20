@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.dto.RegisterDto;
 import com.chatop.api.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/auth/login")
     public Map<String, String> login(@RequestBody String entity) {
@@ -33,9 +34,9 @@ public class UserController {
     
 
     @PostMapping("/auth/register")
-    public String register(@RequestBody String entity) {
-        
-        return "Registered!";
+    public String register(@RequestBody RegisterDto registerDto) {
+
+        return userService.register(registerDto);
     }
 
     @GetMapping("/auth/me")
