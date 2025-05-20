@@ -18,6 +18,10 @@ public class UserService {
 
     public String register(RegisterDto registerDto){
 
+        if (emailExist(registerDto.getEmail())){
+            throw new RuntimeException("There is already an account with the email address: " + registerDto.getEmail());
+        }
+
         User newUser = new User();
         newUser.setEmail(registerDto.getEmail());
         newUser.setName(registerDto.getName());
@@ -26,6 +30,10 @@ public class UserService {
         userRepository.save(newUser);
 
         return "register";
+    }
+
+    private boolean emailExist(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 
 }
