@@ -48,7 +48,7 @@ public class RentalService {
         return rentalMapper.toDto(rental);
     }
 
-    public Rental addRental(RentalCreateDto rentalDto) {
+    public void addRental(RentalCreateDto rentalDto) {
 
         Integer ownerId = rentalDto.getOwnerId();
 
@@ -59,17 +59,17 @@ public class RentalService {
         Rental rental = rentalMapper.toEntity(rentalDto);
         rental.setOwner(user);
         
-        return rentalRepository.save(rental);
+        rentalRepository.save(rental);
     }
 
-    public Rental updateRental(int rentalId, RentalUpdateDto rentalUpdatedDto) {
+    public void updateRental(int rentalId, RentalUpdateDto rentalUpdatedDto) {
 
         Rental oldRental = rentalRepository.findById(rentalId)
             .orElseThrow(() -> new RuntimeException("Rental not found with ID " + rentalId));
 
         Rental updatedRental = rentalMapper.updateEntity(oldRental, rentalUpdatedDto);
 
-        return rentalRepository.save(updatedRental);
+        rentalRepository.save(updatedRental);
     }
 
 
