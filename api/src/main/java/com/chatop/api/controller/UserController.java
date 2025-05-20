@@ -1,9 +1,13 @@
 package com.chatop.api.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.service.UserService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class UserController {
 
@@ -20,9 +25,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/auth/login")
-    public String login(@RequestBody String entity) {
-        
-        return "Logged in!";
+    public Map<String, String> login(@RequestBody String entity) {
+        System.out.println("LOGIN");
+        return Map.of("token", "logged in");
     }
     
 
