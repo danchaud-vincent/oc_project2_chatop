@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 
 import com.chatop.api.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
 }
