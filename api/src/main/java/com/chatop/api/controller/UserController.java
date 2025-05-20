@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
     @PostMapping("/auth/login")
