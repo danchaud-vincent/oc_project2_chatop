@@ -8,9 +8,10 @@ import com.chatop.api.dto.RentalUpdateDto;
 import com.chatop.api.model.Rental;
 import com.chatop.api.service.RentalService;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +25,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class RentalController {
 
-    @Autowired
-    RentalService rentalService;
+    private final RentalService rentalService;
 
     @GetMapping("/rentals")
     public ResponseEntity<List<RentalDto>> getRentals(){

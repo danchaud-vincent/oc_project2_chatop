@@ -3,7 +3,6 @@ package com.chatop.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.RentalCreateDto;
@@ -15,19 +14,16 @@ import com.chatop.api.model.User;
 import com.chatop.api.repository.RentalRepository;
 import com.chatop.api.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class RentalService {
 
-    @Autowired
-    RentalRepository rentalRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RentalMapper rentalMapper;
-
+    private final RentalRepository rentalRepository;
+    private final UserRepository userRepository;
+    private final RentalMapper rentalMapper;
 
     public List<RentalDto> getRentals() {
 
