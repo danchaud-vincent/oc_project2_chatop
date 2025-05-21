@@ -21,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
 
     public String verify(LoginDto logindDto){
 
@@ -28,7 +29,7 @@ public class UserService {
             .authenticate(new UsernamePasswordAuthenticationToken(logindDto.getLogin(), logindDto.getPassword()));
         
         if (authentication.isAuthenticated()){
-            return "Success";
+            return jwtService.generateToken(logindDto.getLogin());
         }
 
         return "fail";
