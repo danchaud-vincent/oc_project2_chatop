@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.dto.LoginDto;
 import com.chatop.api.dto.RegisterDto;
 import com.chatop.api.service.UserService;
 
@@ -27,15 +28,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/auth/login")
-    public Map<String, String> login(@RequestBody String entity) {
-        System.out.println("LOGIN");
-        return Map.of("token", "logged in");
+    public String login(@RequestBody LoginDto loginDto) {
+        return userService.verify(loginDto);
     }
     
 
     @PostMapping("/auth/register")
     public String register(@RequestBody RegisterDto registerDto) {
-
         return userService.register(registerDto);
     }
 
