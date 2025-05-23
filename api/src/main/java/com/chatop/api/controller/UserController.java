@@ -11,6 +11,8 @@ import com.chatop.api.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,14 +31,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/auth/login")
-    public AuthResponseDto login(@RequestBody AuthRequestDto authRequest) {
-        return userService.authenticate(authRequest);
+    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto authRequest) {
+        return new ResponseEntity<>(userService.authenticate(authRequest), HttpStatus.OK);
     }
     
 
     @PostMapping("/auth/register")
-    public String register(@RequestBody RegisterRequestDto registerRequest) {
-        return userService.register(registerRequest);
+    public ResponseEntity<String> register(@RequestBody RegisterRequestDto registerRequest) {
+        return new ResponseEntity<>(userService.register(registerRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/auth/me")
