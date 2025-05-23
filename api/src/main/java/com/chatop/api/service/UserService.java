@@ -1,6 +1,8 @@
 package com.chatop.api.service;
 
 
+import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,8 +33,12 @@ public class UserService {
 
     public String register(RegisterRequestDto registerRequest){
 
-        if (emailExist(registerRequest.getEmail())){
-            throw new RuntimeException("There is already an account with the email address: " + registerRequest.getEmail());
+        String email = registerRequest.getEmail();
+
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if(existingUser.isPresent()){
+            throw new RuntimeException(String.format("User with the email '%s' already exists.", email));
         }
 
         User newUser = new User();
@@ -43,10 +49,6 @@ public class UserService {
         userRepository.save(newUser);
 
         return "register";
-    }
-
-    private boolean emailExist(String email) {
-        return userRepository.findByEmail(email) != null;
     }
 
 }
