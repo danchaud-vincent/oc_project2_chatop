@@ -44,8 +44,8 @@ public class UserController {
     }
 
     @GetMapping("/auth/me")
-    public UserDto getCurrentUser(Authentication authentication) {
-        return userService.getCurrentUser(authentication);
+    public ResponseEntity<UserDto> getCurrentUser(Authentication authentication) {
+        return new ResponseEntity<>(userService.getCurrentUser(authentication), HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}")
