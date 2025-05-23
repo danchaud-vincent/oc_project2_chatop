@@ -46,7 +46,7 @@ public class UserService {
         return new AuthResponseDto(token);
     }
 
-    public String register(RegisterRequestDto registerRequest){
+    public AuthResponseDto register(RegisterRequestDto registerRequest){
 
         String email = registerRequest.getEmail();
 
@@ -63,7 +63,13 @@ public class UserService {
 
         userRepository.save(newUser);
 
-        return "register";
+        // Authenticate the new user directly
+        AuthRequestDto authRequest = new AuthRequestDto(
+            registerRequest.getEmail(), 
+            registerRequest.getPassword()
+        );
+
+        return authenticate(authRequest);
     }
 
 }
