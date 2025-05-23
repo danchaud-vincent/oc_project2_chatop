@@ -3,15 +3,19 @@ package com.chatop.api.service;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.chatop.api.dto.UserDto;
 import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
+import com.chatop.api.mapper.UserMapper;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.UserRepository;
 
@@ -25,6 +29,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
+    private final UserMapper userMapper;
 
     public AuthResponseDto authenticate(AuthRequestDto authRequestDto){
 
@@ -70,6 +75,15 @@ public class UserService {
         );
 
         return authenticate(authRequest);
+    }
+
+    public UserDto getCurrentUser(Authentication authentication) {
+
+        User currentUser = userRepository.findByEmail(authentication.getName()).orElseThrow(() ->
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+        );
+
+        return userMapper.toDto(currentUser);
     }
 
 }
