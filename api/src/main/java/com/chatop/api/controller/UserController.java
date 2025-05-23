@@ -48,11 +48,6 @@ public class UserController {
         return userService.getCurrentUser(authentication);
     }
 
-    @GetMapping("/users")
-    public String getUsers() {
-        return "Get all the users";
-    }
-
     @GetMapping("/user/{userId}")
     public String getUser(@PathVariable Integer userId) {
         return "Get one user";
