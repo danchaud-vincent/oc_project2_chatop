@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.dto.UserDto;
 import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,8 +44,8 @@ public class UserController {
     }
 
     @GetMapping("/auth/me")
-    public String getCurrentUser() {
-        return "User";
+    public UserDto getCurrentUser(Authentication authentication) {
+        return userService.getCurrentUser(authentication);
     }
 
     @GetMapping("/users")
