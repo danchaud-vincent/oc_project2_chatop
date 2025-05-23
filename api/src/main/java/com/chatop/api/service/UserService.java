@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.auth.AuthRequestDto;
-import com.chatop.api.dto.auth.RegisterDto;
+import com.chatop.api.dto.auth.RegisterRequestDto;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.UserRepository;
 
@@ -28,16 +28,16 @@ public class UserService {
         return "fail";
     }
 
-    public String register(RegisterDto registerDto){
+    public String register(RegisterRequestDto registerRequest){
 
-        if (emailExist(registerDto.getEmail())){
-            throw new RuntimeException("There is already an account with the email address: " + registerDto.getEmail());
+        if (emailExist(registerRequest.getEmail())){
+            throw new RuntimeException("There is already an account with the email address: " + registerRequest.getEmail());
         }
 
         User newUser = new User();
-        newUser.setEmail(registerDto.getEmail());
-        newUser.setName(registerDto.getName());
-        newUser.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        newUser.setEmail(registerRequest.getEmail());
+        newUser.setName(registerRequest.getName());
+        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
         userRepository.save(newUser);
 

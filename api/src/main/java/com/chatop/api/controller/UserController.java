@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.dto.auth.AuthRequestDto;
-import com.chatop.api.dto.auth.RegisterDto;
+import com.chatop.api.dto.auth.RegisterRequestDto;
 import com.chatop.api.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,8 +34,8 @@ public class UserController {
     
 
     @PostMapping("/auth/register")
-    public String register(@RequestBody RegisterDto registerDto) {
-        return userService.register(registerDto);
+    public String register(@RequestBody RegisterRequestDto registerRequest) {
+        return userService.register(registerRequest);
     }
 
     @GetMapping("/auth/me")
