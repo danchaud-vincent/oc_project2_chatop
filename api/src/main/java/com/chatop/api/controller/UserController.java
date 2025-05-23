@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chatop.api.dto.auth.LoginDto;
+import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.RegisterDto;
 import com.chatop.api.service.UserService;
 
@@ -28,8 +28,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/auth/login")
-    public String login(@RequestBody LoginDto loginDto) {
-        return userService.verify(loginDto);
+    public String login(@RequestBody AuthRequestDto authRequest) {
+        return userService.verify(authRequest);
     }
     
 
