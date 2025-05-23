@@ -3,8 +3,10 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
+import com.chatop.api.dto.ResponseRentalDto;
 import com.chatop.api.service.RentalService;
 import com.chatop.api.service.UserService;
 
@@ -50,23 +52,22 @@ public class RentalController {
     }
 
     @PostMapping("/rentals")
-    public ResponseEntity<Map<String, String>> addRental(
+    public ResponseRentalDto addRental(
         @RequestParam("name") String name,
-        @RequestParam("surface") String surface,
-        @RequestParam("price") String price,
+        @RequestParam("surface") BigDecimal surface,
+        @RequestParam("price") BigDecimal price,
         @RequestParam("description") String description,
-        @RequestParam("picture") MultipartFile imageFile,
-        Authentication authentication) throws IOException {
+        @RequestParam("picture") MultipartFile picture,
+        Authentication authentication){
         
         Integer ownerID = userService.getCurrentUser(authentication).getId();
-        System.out.println(ownerID);
-        // RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID);
+        System.out.println("HELLLOOOO" + ownerID);
+        
+        RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID);
         
         // rentalService.addRental(newRental, imageFile);
       
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(Map.of("message", "Rental created!"));
+        return new ResponseRentalDto("ok");
     }
 
     @PutMapping("/rentals/{rentalId}")
