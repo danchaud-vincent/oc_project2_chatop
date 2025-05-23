@@ -28,7 +28,22 @@ public class UserService {
 
     public AuthResponseDto authenticate(AuthRequestDto authRequestDto){
 
-        return new AuthResponseDto();
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                authRequestDto.getLogin(), 
+                authRequestDto.getPassword()
+            )
+        );
+
+        String email = authRequestDto.getLogin();
+
+        if (!authentication.isAuthenticated()) {
+            throw new RuntimeException(String.format("Unable to generate a token for the email '%s'.", email));
+        }
+
+        String token = jwtService.generateToken(email);
+        
+        return new AuthResponseDto(token);
     }
 
     public String register(RegisterRequestDto registerRequest){
