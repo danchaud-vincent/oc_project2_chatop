@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RentalDto {
 
-    private int id;
+    private Integer id;
     private String name;
     private BigDecimal surface;
     private BigDecimal price;
     private String description;
     private String picture;
-    private int ownerId;
+    private Integer ownerId;
     private Date createdAt;
     private Date updatedat;
 
