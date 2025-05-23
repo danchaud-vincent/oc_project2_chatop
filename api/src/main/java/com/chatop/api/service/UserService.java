@@ -80,10 +80,19 @@ public class UserService {
     public UserDto getCurrentUser(Authentication authentication) {
 
         User currentUser = userRepository.findByEmail(authentication.getName()).orElseThrow(() ->
-            new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
+            new RuntimeException("User not found")
         );
 
         return userMapper.toDto(currentUser);
+    }
+
+    public UserDto getUserById(Integer userId) {
+        
+        User user = userRepository.findById(userId).orElseThrow(() ->
+            new RuntimeException(String.format("User with the id '%s' not found", userId.toString()))
+        );
+
+        return userMapper.toDto(user);
     }
 
 }
