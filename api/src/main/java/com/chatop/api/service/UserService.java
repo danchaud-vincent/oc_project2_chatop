@@ -25,13 +25,6 @@ public class UserService {
 
     public String verify(LoginDto logindDto){
 
-        Authentication authentication = authenticationManager
-            .authenticate(new UsernamePasswordAuthenticationToken(logindDto.getLogin(), logindDto.getPassword()));
-        
-        if (authentication.isAuthenticated()){
-            return jwtService.generateToken(logindDto.getLogin());
-        }
-
         return "fail";
     }
 
