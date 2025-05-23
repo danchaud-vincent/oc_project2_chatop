@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chatop.api.dto.LoginDto;
-import com.chatop.api.dto.RegisterDto;
+import com.chatop.api.dto.auth.LoginDto;
+import com.chatop.api.dto.auth.RegisterDto;
 import com.chatop.api.service.UserService;
 
 import lombok.RequiredArgsConstructor;
