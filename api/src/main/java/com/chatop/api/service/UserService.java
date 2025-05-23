@@ -35,16 +35,14 @@ public class UserService {
 
         String email = registerRequest.getEmail();
 
-        Optional<User> existingUser = userRepository.findByEmail(email);
-
-        if(existingUser.isPresent()){
-            throw new RuntimeException(String.format("User with the email '%s' already exists.", email));
-        }
+        User existingUser = userRepository.findByEmail(email).orElseThrow(() ->
+            new RuntimeException(String.format("User with the email '%s' already exists.", email))
+        );
 
         User newUser = new User();
-        newUser.setEmail(registerRequest.getEmail());
-        newUser.setName(registerRequest.getName());
-        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        newUser.setEmail(existingUser.getEmail());
+        newUser.setName(existingUser.getName());
+        newUser.setPassword(passwordEncoder.encode(existingUser.getPassword()));
 
         userRepository.save(newUser);
 
