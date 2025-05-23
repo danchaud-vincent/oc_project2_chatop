@@ -1,9 +1,11 @@
 package com.chatop.api.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
@@ -48,7 +50,7 @@ public class RentalService {
         return rentalMapper.toDto(rental);
     }
 
-    public void addRental(RentalCreateDto rentalDto) {
+    public void addRental(RentalCreateDto rentalDto, MultipartFile imageFile) throws IOException {
 
         Integer ownerId = rentalDto.getOwnerId();
 
@@ -58,7 +60,10 @@ public class RentalService {
 
         Rental rental = rentalMapper.toEntity(rentalDto);
         rental.setOwner(user);
-        
+        rental.setPicture(imageFile.getOriginalFilename());
+        rental.setPictureType(imageFile.getContentType());
+        rental.setPictureData(imageFile.getBytes());
+
         rentalRepository.save(rental);
     }
 

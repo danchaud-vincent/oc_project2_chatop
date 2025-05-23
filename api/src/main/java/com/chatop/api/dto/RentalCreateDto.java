@@ -15,7 +15,6 @@ public class RentalCreateDto {
     private BigDecimal surface;
     private BigDecimal price;
     private String description;
-    private String picture;
     private Integer ownerId;
 
 }
