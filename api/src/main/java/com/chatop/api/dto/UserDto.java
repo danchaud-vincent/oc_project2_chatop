@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDto {
 
-    private Integer id;
     private String name;
     private String email;
     private Date createdAt;
     private Date updatedAt;
-    
 
 }
