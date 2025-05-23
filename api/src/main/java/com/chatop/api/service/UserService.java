@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.auth.AuthRequestDto;
+import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.UserRepository;
@@ -23,9 +24,9 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
 
-    public String verify(AuthRequestDto authRequestDto){
+    public AuthResponseDto authenticate(AuthRequestDto authRequestDto){
 
-        return "fail";
+        return new AuthResponseDto();
     }
 
     public String register(RegisterRequestDto registerRequest){
