@@ -35,18 +35,22 @@ public class UserService {
 
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
-                authRequestDto.getLogin(), 
+                authRequestDto.getEmail(), 
                 authRequestDto.getPassword()
             )
         );
 
-        String email = authRequestDto.getLogin();
+        String email = authRequestDto.getEmail();
+
+        System.out.println(email);
 
         if (!authentication.isAuthenticated()) {
             throw new RuntimeException(String.format("Unable to generate a token for the email '%s'.", email));
         }
 
         String token = jwtService.generateToken(email);
+
+        System.out.println(token);
         
         return new AuthResponseDto(token);
     }
