@@ -6,7 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
-import com.chatop.api.dto.ResponseRentalDto;
+import com.chatop.api.dto.response.ResponseRentalDto;
+import com.chatop.api.dto.response.ResponseRentalsDto;
 import com.chatop.api.service.RentalService;
 import com.chatop.api.service.UserService;
 
@@ -42,8 +43,8 @@ public class RentalController {
     private final UserService userService;
 
     @GetMapping("/rentals")
-    public ResponseEntity<List<RentalDto>> getRentals(){
-        return new ResponseEntity<List<RentalDto>>(rentalService.getRentals(), HttpStatus.OK);
+    public ResponseEntity<ResponseRentalsDto> getRentals(){
+        return new ResponseEntity<ResponseRentalsDto>(rentalService.getRentals(), HttpStatus.OK);
     }
 
     @GetMapping("/rentals/{rentalId}")
@@ -52,32 +53,28 @@ public class RentalController {
     }
 
     @PostMapping("/rentals")
-    public ResponseRentalDto addRental(
+    public ResponseEntity<ResponseRentalDto> addRental(
         @RequestParam("name") String name,
         @RequestParam("surface") BigDecimal surface,
         @RequestParam("price") BigDecimal price,
         @RequestParam("description") String description,
-        @RequestParam("picture") MultipartFile picture,
-        Authentication authentication){
+        @RequestParam("picture") MultipartFile imageFile,
+        Authentication authentication) throws IOException{
         
         Integer ownerID = userService.getCurrentUser(authentication).getId();
-        System.out.println("HELLLOOOO" + ownerID);
         
         RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID);
         
-        // rentalService.addRental(newRental, imageFile);
+        rentalService.addRental(newRental, imageFile);
       
-        return new ResponseRentalDto("ok");
+        return new ResponseEntity<>(new ResponseRentalDto("Rental created"), HttpStatus.OK);
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public ResponseEntity<Map<String, String>> updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
+    public ResponseEntity<ResponseRentalDto> updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
        
         rentalService.updateRental(rentalId, rentalDto);
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(Map.of("message", "Rental updated!"));
-        
+        return new ResponseEntity<>(new ResponseRentalDto("Rental updated"), HttpStatus.OK);
     }
 }
