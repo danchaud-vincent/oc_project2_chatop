@@ -26,6 +26,7 @@ public class RentalService {
     private final RentalRepository rentalRepository;
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
+    private final ImageService imageService;
 
     public List<RentalDto> getRentals() {
 
@@ -59,6 +60,9 @@ public class RentalService {
 
         Rental rental = rentalMapper.toEntity(rentalDto);
         rental.setOwner(user);
+
+        // save the image in the uploads dir
+        imageService.saveImage(imageFile);
 
         rentalRepository.save(rental);
     }
