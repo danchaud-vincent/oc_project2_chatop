@@ -5,7 +5,6 @@ import java.time.temporal.ChronoUnit;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ public class JWTService {
 
     private static final Integer MINUTES = 60;
     private final JwtEncoder jwtEncoder;
-    private final JwtDecoder jwtDecoder;
 
     public String generateToken(String email) {
         Instant now = Instant.now();
