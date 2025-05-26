@@ -2,6 +2,7 @@ package com.chatop.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
@@ -62,13 +63,19 @@ public class RentalController {
         @RequestParam("picture") MultipartFile imageFile,
         Authentication authentication) throws IOException{
         
+        // get the id of the current user logged in
         Integer ownerID = userService.getCurrentUser(authentication).getId();
         
-        RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID);
+        // build the url of the app, and then build the url for the image uploaded
+        // to display the image with the imageController
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        String pictureUrl = baseUrl + "/api/uploads/images/" + imageFile.getOriginalFilename();
+
+        RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID, pictureUrl);
         
         rentalService.addRental(newRental, imageFile);
       
-        return new ResponseEntity<>(new ResponseRentalDto("Rental created"), HttpStatus.OK);
+        return new ResponseEntity<ResponseRentalDto>(new ResponseRentalDto("Rental created"), HttpStatus.CREATED);
     }
 
     @PutMapping("/rentals/{rentalId}")
