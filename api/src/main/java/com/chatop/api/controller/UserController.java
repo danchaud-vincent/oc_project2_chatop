@@ -1,7 +1,5 @@
 package com.chatop.api.controller;
 
-import java.util.Map;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.dto.UserDto;
