@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
@@ -44,7 +42,10 @@ public class RentalController {
 
     @GetMapping("/rentals")
     public ResponseEntity<ResponseRentalsDto> getRentals(){
-        return new ResponseEntity<ResponseRentalsDto>(rentalService.getRentals(), HttpStatus.OK);
+
+        List<RentalDto> rentals = rentalService.getRentals();
+
+        return new ResponseEntity<ResponseRentalsDto>(new ResponseRentalsDto(rentals), HttpStatus.OK);
     }
 
     @GetMapping("/rentals/{rentalId}")
@@ -71,9 +72,16 @@ public class RentalController {
     }
 
     @PutMapping("/rentals/{rentalId}")
-    public ResponseEntity<ResponseRentalDto> updateRental(@PathVariable int rentalId, @RequestBody RentalUpdateDto rentalDto) {
+    public ResponseEntity<ResponseRentalDto> updateRental(
+        @PathVariable int rentalId, 
+        @RequestParam("name") String name,
+        @RequestParam("surface") String surface,
+        @RequestParam("price") BigDecimal price,
+        @RequestParam("description") String description) {
+
+        RentalUpdateDto rentalUpdatedDto = new RentalUpdateDto(name, price, price, description);
        
-        rentalService.updateRental(rentalId, rentalDto);
+        rentalService.updateRental(rentalId, rentalUpdatedDto);
 
         return new ResponseEntity<>(new ResponseRentalDto("Rental updated"), HttpStatus.OK);
     }

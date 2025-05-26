@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
-import com.chatop.api.dto.response.ResponseRentalsDto;
 import com.chatop.api.mapper.RentalMapper;
 import com.chatop.api.model.Rental;
 import com.chatop.api.model.User;
@@ -28,7 +27,7 @@ public class RentalService {
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
 
-    public ResponseRentalsDto getRentals() {
+    public List<RentalDto> getRentals() {
 
         List<Rental> rentals = rentalRepository.findAll();
 
@@ -40,9 +39,7 @@ public class RentalService {
             rentalsDto.add(rentalDto);
         }
 
-        ResponseRentalsDto responseRentalsDto = new ResponseRentalsDto(rentalsDto);
-
-        return responseRentalsDto;
+        return rentalsDto;
     }
 
      public RentalDto getRentalById(int rentalId) {
