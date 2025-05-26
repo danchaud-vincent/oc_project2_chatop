@@ -16,5 +16,6 @@ public class RentalCreateDto {
     private BigDecimal price;
     private String description;
     private Integer ownerId;
+    private String picture;
 
 }
