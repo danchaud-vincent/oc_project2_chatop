@@ -46,10 +46,5 @@ public class Rental {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
-
-    private String pictureType;
-
-    @Lob
-    private byte[] pictureData;
     
 }
