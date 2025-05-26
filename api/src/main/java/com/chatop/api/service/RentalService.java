@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
+import com.chatop.api.dto.response.ResponseRentalsDto;
 import com.chatop.api.mapper.RentalMapper;
 import com.chatop.api.model.Rental;
 import com.chatop.api.model.User;
@@ -27,12 +28,11 @@ public class RentalService {
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
 
-    public List<RentalDto> getRentals() {
-
-        List<RentalDto> rentalsDto = new ArrayList<RentalDto>();
+    public ResponseRentalsDto getRentals() {
 
         List<Rental> rentals = rentalRepository.findAll();
 
+        List<RentalDto> rentalsDto = new ArrayList<RentalDto>();
         for(Rental rental: rentals){
 
             RentalDto rentalDto = rentalMapper.toDto(rental);
@@ -40,7 +40,9 @@ public class RentalService {
             rentalsDto.add(rentalDto);
         }
 
-        return rentalsDto;
+        ResponseRentalsDto responseRentalsDto = new ResponseRentalsDto(rentalsDto);
+
+        return responseRentalsDto;
     }
 
      public RentalDto getRentalById(int rentalId) {
@@ -60,9 +62,6 @@ public class RentalService {
 
         Rental rental = rentalMapper.toEntity(rentalDto);
         rental.setOwner(user);
-        rental.setPicture(imageFile.getOriginalFilename());
-        rental.setPictureType(imageFile.getContentType());
-        rental.setPictureData(imageFile.getBytes());
 
         rentalRepository.save(rental);
     }
