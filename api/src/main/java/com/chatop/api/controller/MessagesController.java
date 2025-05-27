@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.dto.MessageDto;
 import com.chatop.api.dto.response.ResponseMessageDto;
+import com.chatop.api.dto.response.ResponseMessagesDto;
 import com.chatop.api.service.MessageService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,8 @@ public class MessagesController {
     private final MessageService messageService;
 
     @GetMapping("/messages")
-    public ResponseEntity<String> getMessages(){
-        return new ResponseEntity<>("messages", HttpStatus.OK);
+    public ResponseEntity<ResponseMessagesDto> getMessages(){
+        return new ResponseEntity<ResponseMessagesDto>(messageService.getMessages(), HttpStatus.OK);
     }
 
     @PostMapping("/messages")
@@ -43,7 +44,7 @@ public class MessagesController {
         
         ResponseMessageDto responseMessageDto = messageService.sendMessage(messageDto);
         
-        return new ResponseEntity<>(responseMessageDto, HttpStatus.CREATED);
+        return new ResponseEntity<ResponseMessageDto>(responseMessageDto, HttpStatus.CREATED);
     }
     
 }
