@@ -8,6 +8,9 @@ import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
 import com.chatop.api.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -25,30 +28,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
+@Tag(name = "Utilisateurs", description = "Opérations sur les utilisateurs")
 @RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
 
+    @Operation(
+        summary = "Connexion et authentification d'un utilisateur",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur connecté")
+        }
+    )
     @PostMapping("/auth/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto authRequest) {
-        return new ResponseEntity<>(userService.authenticate(authRequest), HttpStatus.OK);
+        return new ResponseEntity<AuthResponseDto>(userService.authenticate(authRequest), HttpStatus.OK);
     }
     
-
+    @Operation(
+        summary = "Enregistrement d'un utilisateur",
+        responses = {
+            @ApiResponse(responseCode = "201", description = "Nouvel Utilisateur créé")
+        }
+    )
     @PostMapping("/auth/register")
     public ResponseEntity<AuthResponseDto> register(@RequestBody RegisterRequestDto registerRequest) {
-        return new ResponseEntity<>(userService.register(registerRequest), HttpStatus.CREATED);
+        return new ResponseEntity<AuthResponseDto>(userService.register(registerRequest), HttpStatus.CREATED);
     }
 
+    @Operation(
+        summary = "Information sur l'utilisateur connecté",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Informations de l'utilisateur retournées")
+        }
+    )
     @GetMapping("/auth/me")
     public ResponseEntity<UserDto> getCurrentUser(Authentication authentication) {
-        return new ResponseEntity<>(userService.getCurrentUser(authentication), HttpStatus.OK);
+        return new ResponseEntity<UserDto>(userService.getCurrentUser(authentication), HttpStatus.OK);
     }
 
+
+    @Operation(
+        summary = "Information sur un utilisateur selectionné par id"
+    )
     @GetMapping("/user/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable Integer userId) {
-        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+        return new ResponseEntity<UserDto>(userService.getUserById(userId), HttpStatus.OK);
     }
     
 }
