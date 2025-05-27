@@ -36,6 +36,7 @@ public class UserController {
 
     @Operation(
         summary = "Connexion et authentification d'un utilisateur",
+        description = "Permet de connecter et d'authentifier un utilisateur",
         responses = {
             @ApiResponse(responseCode = "200", description = "Utilisateur connecté")
         }
@@ -47,6 +48,7 @@ public class UserController {
     
     @Operation(
         summary = "Enregistrement d'un utilisateur",
+        description = "Permet d'enregistrer un nouvel utilisateur, et de le connecter",
         responses = {
             @ApiResponse(responseCode = "201", description = "Nouvel Utilisateur créé")
         }
@@ -57,7 +59,8 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Information sur l'utilisateur connecté",
+        summary = "Récupère les information de l'utilisateur connecté",
+        description = "Permet de récupérer l'ensemble des informations de l'utilisateur connecté",
         responses = {
             @ApiResponse(responseCode = "200", description = "Informations de l'utilisateur retournées")
         }
@@ -69,7 +72,11 @@ public class UserController {
 
 
     @Operation(
-        summary = "Information sur un utilisateur selectionné par id"
+        summary = "Récumère les informations d'un utilisateur",
+        description = "Permet de récupérer les informations d'un utilisateur en fournissant son ID ",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur trouvé")
+        }
     )
     @GetMapping("/user/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable Integer userId) {
