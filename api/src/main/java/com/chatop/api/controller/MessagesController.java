@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.dto.MessageDto;
+import com.chatop.api.dto.response.ResponseMessageDto;
 import com.chatop.api.service.MessageService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,11 +33,16 @@ public class MessagesController {
     }
 
     @PostMapping("/messages")
-    public String postMethodName(@RequestBody String newMessage) {
+    public ResponseEntity<ResponseMessageDto> sendMessage(
+        @RequestParam("rental_id") Integer rentalId,
+        @RequestParam("user_id") Integer userId,
+        @RequestParam("message") String message) {
+
+        MessageDto messageDto = new MessageDto(userId, rentalId, message);
         
-        messageService.sendMessage(newMessage);
+        ResponseMessageDto responseMessageDto = messageService.sendMessage(messageDto);
         
-        return "hello";
+        return new ResponseEntity<>(responseMessageDto, HttpStatus.CREATED);
     }
     
 }
