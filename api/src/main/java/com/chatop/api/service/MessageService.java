@@ -1,9 +1,13 @@
 package com.chatop.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.MessageDto;
 import com.chatop.api.dto.response.ResponseMessageDto;
+import com.chatop.api.dto.response.ResponseMessagesDto;
 import com.chatop.api.mapper.MessageMapper;
 import com.chatop.api.model.Message;
 import com.chatop.api.repository.MessageRepository;
@@ -17,8 +21,15 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final MessageMapper messageMapper;
 
-    public void getMessages(){
+    public ResponseMessagesDto getMessages(){
+        List<Message> messagesEntities = messageRepository.findAll();
 
+        List<MessageDto> messagesDto = new ArrayList<MessageDto>();
+        for(Message messageEntity: messagesEntities){
+                messagesDto.add(messageMapper.toDto(messageEntity));
+        }
+
+        return new ResponseMessagesDto(messagesDto);
     }
 
     public ResponseMessageDto sendMessage(MessageDto messageDto){
