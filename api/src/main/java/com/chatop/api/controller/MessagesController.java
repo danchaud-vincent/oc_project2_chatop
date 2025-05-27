@@ -34,11 +34,12 @@ public class MessagesController {
 
     @PostMapping("/messages")
     public ResponseEntity<ResponseMessageDto> sendMessage(
-        @RequestParam("rental_id") Integer rentalId,
-        @RequestParam("user_id") Integer userId,
-        @RequestParam("message") String message) {
+        @RequestBody MessageDto messageRequest) {
 
-        MessageDto messageDto = new MessageDto(userId, rentalId, message);
+        MessageDto messageDto = new MessageDto(
+            messageRequest.getUserId(), 
+            messageRequest.getRentalId(), 
+            messageRequest.getMessage());
         
         ResponseMessageDto responseMessageDto = messageService.sendMessage(messageDto);
         
