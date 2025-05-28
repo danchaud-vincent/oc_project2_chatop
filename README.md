@@ -84,6 +84,10 @@ Launch the API and access to the documentation :
 
 http://localhost:3001/swagger-ui/index.html#/
 
+You will need a token to access and use some routes:
+- Use the register route to register
+- Copy the **token** you received and paste it in the button **Authorize** at the top of the page.
+
 ## Technologies :
 
 - Angular version 14.1.0
