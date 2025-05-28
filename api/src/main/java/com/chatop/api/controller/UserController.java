@@ -30,17 +30,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@Tag(name = "Utilisateurs", description = "Opérations sur les utilisateurs")
+@Tag(name = "Users", description = "Methods on users")
 @RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
 
     @Operation(
-        summary = "Connexion et authentification d'un utilisateur",
-        description = "Permet de connecter et d'authentifier un utilisateur",
+        summary = "User authentication",
+        description = "Allows a user to log in and authenticate",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Utilisateur connecté")
+            @ApiResponse(responseCode = "200", description = "User logged in")
         }
     )
     @PostMapping("/auth/login")
@@ -49,10 +49,10 @@ public class UserController {
     }
     
     @Operation(
-        summary = "Enregistrement d'un utilisateur",
-        description = "Permet d'enregistrer un nouvel utilisateur, et de le connecter",
+        summary = "User registration",
+        description = "Allows a user to register and logging in",
         responses = {
-            @ApiResponse(responseCode = "201", description = "Nouvel Utilisateur créé")
+            @ApiResponse(responseCode = "201", description = "User registered")
         }
     )
     @PostMapping("/auth/register")
@@ -61,10 +61,10 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Récupère les information de l'utilisateur connecté",
-        description = "Permet de récupérer l'ensemble des informations de l'utilisateur connecté",
+        summary = "Get the information of the logged user",
+        description = "Allows you to retrieve all the information of the logged user",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Informations de l'utilisateur retournées")
+            @ApiResponse(responseCode = "200", description = "Logged user's information")
         }
     )
     @GetMapping("/auth/me")
@@ -74,10 +74,10 @@ public class UserController {
 
 
     @Operation(
-        summary = "Récumère les informations d'un utilisateur",
-        description = "Permet de récupérer les informations d'un utilisateur en fournissant son ID ",
+        summary = "Get the information of a user selected by ID",
+        description = "Retrieve a user's information by providing an ID",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Utilisateur trouvé")
+            @ApiResponse(responseCode = "200", description = "User found")
         }
     )
     @GetMapping("/user/{userId}")
