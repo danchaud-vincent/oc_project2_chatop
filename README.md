@@ -23,10 +23,11 @@ Before running the project, make sur your environment meets the following requir
 
 ### Prerequisites 
 
-- [**Node.js**](https://nodejs.org/en)
-- **npm**
-- [**Angular CLI**](https://github.com/angular/angular-cli) version 14.1.0
+- **Java** version 17+
+- **Maven** 
 - [**MySQL**](https://www.mysql.com/)
+- [**Node.js**](https://nodejs.org/en)
+- [**Angular CLI**](https://github.com/angular/angular-cli) version 14.1.0
 
 ### Steps to Setup
 
@@ -39,18 +40,27 @@ https://github.com/danchaud-vincent/oc_project2_chatop.git
 **2. Create MySQL Database**
 
 ```bash
-create database chatop_db;
+create database DB_NAME;
 ```
 
 **3. Setup application.properties**
 
 - Open `api/src/main/resources/application.properties`
-- Change the environment variables `${DB_NAME}`, `${DB_USERNAME}`, `${DB_PASSWORD}`, `${JwtKey}` by your setup variables
+- Change the following environment variables by your information:
+    - `${DB_NAME}`
+    - `${DB_USERNAME}`
+    - `${DB_PASSWORD}`
+    - `${JwtKey}`
 
 **4. Build and run the app using maven**
 
-- Open the folder `api` and run maven:
+- Open the folder `api`:
+> cd api
 
+- Install dependencies:
+> mvn clean install
+
+- Launch the api:
 ```bash
 mvn spring-boot:run
 ```
@@ -66,7 +76,13 @@ mvn spring-boot:run
 - Launch Front-end :
 > ng serve --open
 
+## API Documentation
 
+The API is documented with Swagger.
+
+Launch the API and access to the documentation :
+
+http://localhost:3001/swagger-ui/index.html#/
 
 ## Technologies :
 
@@ -85,14 +101,6 @@ mvn spring-boot:run
     - SpringDoc OpenAPI WebMVC
 - Postman
 - Mockoon
-
-## Ressources :
-
-### Mockoon
-
-### Postman
-
-### MySQL
 
 ## Author :
 
