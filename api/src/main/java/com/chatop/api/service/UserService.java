@@ -13,6 +13,7 @@ import com.chatop.api.dto.UserDto;
 import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
+import com.chatop.api.exception.UserAlreadyExistsException;
 import com.chatop.api.mapper.UserMapper;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.UserRepository;
@@ -56,7 +57,7 @@ public class UserService {
         Optional<User> existingUser = userRepository.findByEmail(email);
         
         if (existingUser.isPresent()) {
-            throw new RuntimeException(String.format("User with the email '%s' already exists.", email));
+            throw new UserAlreadyExistsException(String.format("User with the email '%s' already exists.", email));
         }
 
         User newUser = new User();
