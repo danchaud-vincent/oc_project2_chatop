@@ -2,6 +2,9 @@ package com.chatop.api.model;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,9 +34,11 @@ public class Message {
     @Column(name = "user_id", nullable = false)
     private Integer userId;
 
+    @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
 
