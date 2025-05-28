@@ -13,6 +13,7 @@ import com.chatop.api.dto.UserDto;
 import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
+import com.chatop.api.exception.InvalidCredentialsException;
 import com.chatop.api.exception.UserAlreadyExistsException;
 import com.chatop.api.mapper.UserMapper;
 import com.chatop.api.model.User;
@@ -32,19 +33,19 @@ public class UserService {
 
     public AuthResponseDto authenticate(AuthRequestDto authRequestDto){
 
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                authRequestDto.getEmail(), 
-                authRequestDto.getPassword()
-            )
-        );
-
-        String email = authRequestDto.getEmail();
-
-        if (!authentication.isAuthenticated()) {
-            throw new RuntimeException(String.format("Unable to generate a token for the email '%s'.", email));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    authRequestDto.getEmail(), 
+                    authRequestDto.getPassword()
+                )
+            );
+            
+        } catch (Exception e) {
+            throw new InvalidCredentialsException("Email or password not valid");
         }
-
+       
+        String email = authRequestDto.getEmail();
         String token = jwtService.generateToken(email);
         
         return new AuthResponseDto(token);
