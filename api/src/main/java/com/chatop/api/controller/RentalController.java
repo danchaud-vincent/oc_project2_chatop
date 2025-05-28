@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
-@Tag(name = "Locations", description = "Opérations sur les locations")
+@Tag(name = "Rentals", description = "Methods on rentals")
 @RequestMapping("/api")
 public class RentalController {
 
@@ -47,10 +47,10 @@ public class RentalController {
     private final UserService userService;
 
     @Operation(
-        summary = "Récupère la liste des locations",
-        description = "Permet de récupérer la liste des locations avec les informations complètes de chaque location",
+        summary = "Get the list of rentals",
+        description = "Retrieve the list of rentals with all the information for each rental",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Récupération de l'ensemble des locations")
+            @ApiResponse(responseCode = "200", description = "List of rentals returned")
         }
     )
     @GetMapping("/rentals")
@@ -63,10 +63,10 @@ public class RentalController {
 
 
     @Operation(
-        summary = "Récupère une location par ID",
-        description = "Permet de récupérer l'ensemble d'une location en fournissant son ID",
+        summary = "Get a rental by ID",
+        description = "Retrieve the information of a rental by providing its ID",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Location trouvée")
+            @ApiResponse(responseCode = "200", description = "Rental found")
         }
     )
     @GetMapping("/rentals/{rentalId}")
@@ -76,10 +76,10 @@ public class RentalController {
 
 
     @Operation(
-        summary = "Création d'une nouvelle location",
-        description = "Permet d'ajouter une nouvelle location en fournissant l'ensemble des informations",
+        summary = "Create a new rental",
+        description = "Create a new rental by providing all the necessary information",
         responses = {
-            @ApiResponse(responseCode = "201", description = "Location ajoutée")
+            @ApiResponse(responseCode = "201", description = "Rental added")
         }
     )
     @PostMapping("/rentals")
@@ -108,10 +108,10 @@ public class RentalController {
 
 
     @Operation(
-        summary = "Mise à jour d'une location",
-        description = "Permet de mettre à jour une location en fournissant son ID et les informations à mettre à jour",
+        summary = "Update a rental",
+        description = "Update a rental selected by ID by providing the information to update",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Location mise à jour")
+            @ApiResponse(responseCode = "200", description = "Rental updated")
         }
     )
     @PutMapping("/rentals/{rentalId}")
