@@ -13,22 +13,35 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+
 @SecurityRequirement(name = "bearerAuth")
 @RestController
 @CrossOrigin
+@Tag(name = "Images", description = "Methods on images")
 @RequestMapping("/api/uploads")
 public class ImageController {
 
     @Value("${file.upload-dir}")
     private String uploadDir;
 
+
+    @Operation(
+        summary = "Get the image of a rental",
+        description = "Retrieve the image of a rental with its filepath",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Image found")
+        }
+    )
     @GetMapping("/images/{filename}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename)  {
 
