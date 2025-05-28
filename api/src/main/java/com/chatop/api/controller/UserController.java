@@ -40,7 +40,9 @@ public class UserController {
         summary = "User authentication",
         description = "Allows a user to log in and authenticate",
         responses = {
-            @ApiResponse(responseCode = "200", description = "User logged in")
+            @ApiResponse(responseCode = "200", description = "User logged in"),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(responseCode = "404", description = "User not found")
         }
     )
     @PostMapping("/auth/login")
@@ -52,7 +54,9 @@ public class UserController {
         summary = "User registration",
         description = "Allows a user to register and logging in",
         responses = {
-            @ApiResponse(responseCode = "201", description = "User registered")
+            @ApiResponse(responseCode = "201", description = "User registered"),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(responseCode = "409", description = "User already exists")
         }
     )
     @PostMapping("/auth/register")
@@ -64,7 +68,9 @@ public class UserController {
         summary = "Get the information of the logged user",
         description = "Allows you to retrieve all the information of the logged user",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Logged user's information")
+            @ApiResponse(responseCode = "200", description = "Logged user's information"),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(responseCode = "404", description = "User not found")
         }
     )
     @GetMapping("/auth/me")
@@ -77,7 +83,9 @@ public class UserController {
         summary = "Get the information of a user selected by ID",
         description = "Retrieve a user's information by providing an ID",
         responses = {
-            @ApiResponse(responseCode = "200", description = "User found")
+            @ApiResponse(responseCode = "200", description = "User found"),
+            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(responseCode = "404", description = "User not found")
         }
     )
     @GetMapping("/user/{userId}")
