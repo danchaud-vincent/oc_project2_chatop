@@ -15,6 +15,7 @@ import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
 import com.chatop.api.exception.InvalidCredentialsException;
 import com.chatop.api.exception.UserAlreadyExistsException;
+import com.chatop.api.exception.UserNotFoundException;
 import com.chatop.api.mapper.UserMapper;
 import com.chatop.api.model.User;
 import com.chatop.api.repository.UserRepository;
@@ -80,7 +81,7 @@ public class UserService {
     public UserDto getCurrentUser(Authentication authentication) {
 
         User currentUser = userRepository.findByEmail(authentication.getName()).orElseThrow(() ->
-            new RuntimeException("User not found")
+            new UserNotFoundException("User not found")
         );
 
         return userMapper.toDto(currentUser);
@@ -89,7 +90,7 @@ public class UserService {
     public UserDto getUserById(Integer userId) {
         
         User user = userRepository.findById(userId).orElseThrow(() ->
-            new RuntimeException(String.format("User with the id '%s' not found", userId.toString()))
+            new UserNotFoundException(String.format("User with the id '%s' not found", userId.toString()))
         );
 
         return userMapper.toDto(user);
