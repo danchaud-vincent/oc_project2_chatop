@@ -24,7 +24,7 @@ Before running the project, make sur your environment meets the following requir
 ### Prerequisites 
 
 - **Java** version 17+
-- **Maven** 
+- [**Maven**](https://maven.apache.org/) 
 - [**MySQL**](https://www.mysql.com/)
 - [**Node.js**](https://nodejs.org/en)
 - [**Angular CLI**](https://github.com/angular/angular-cli) version 14.1.0
