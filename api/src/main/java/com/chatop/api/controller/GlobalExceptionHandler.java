@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.chatop.api.exception.InvalidCredentialsException;
+import com.chatop.api.exception.RentalNotFoundException;
 import com.chatop.api.exception.UserAlreadyExistsException;
 import com.chatop.api.exception.UserNotFoundException;
 import com.chatop.api.model.ErrorResponse;
@@ -58,6 +59,9 @@ public class GlobalExceptionHandler {
     }
 
     // Exceptions handler for rentals
+    public ResponseEntity<String> handleNotFoundRentalException(RentalNotFoundException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
     
 
 
