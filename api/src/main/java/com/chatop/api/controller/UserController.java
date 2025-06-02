@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,7 @@ public class UserController {
         }
     )
     @PostMapping("/auth/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto authRequest) {
+    public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody AuthRequestDto authRequest) {
         return new ResponseEntity<AuthResponseDto>(userService.authenticate(authRequest), HttpStatus.OK);
     }
     
@@ -92,7 +93,7 @@ public class UserController {
         }
     )
     @PostMapping("/auth/register")
-    public ResponseEntity<AuthResponseDto> register(@RequestBody RegisterRequestDto registerRequest) {
+    public ResponseEntity<AuthResponseDto> register(@Valid @RequestBody RegisterRequestDto registerRequest) {
         return new ResponseEntity<AuthResponseDto>(userService.register(registerRequest), HttpStatus.CREATED);
     }
 
