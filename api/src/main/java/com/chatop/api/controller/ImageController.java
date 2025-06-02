@@ -13,7 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatop.api.model.ErrorResponse;
+
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +43,22 @@ public class ImageController {
         summary = "Get the image of a rental",
         description = "Retrieve the image of a rental with its filepath",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Image found")
+            @ApiResponse(responseCode = "200", description = "Image found"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @GetMapping("/images/{filename}")
