@@ -9,10 +9,13 @@ import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
 import com.chatop.api.dto.response.ResponseRentalDto;
 import com.chatop.api.dto.response.ResponseRentalsDto;
+import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.RentalService;
 import com.chatop.api.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,7 +53,22 @@ public class RentalController {
         summary = "Get the list of rentals",
         description = "Retrieve the list of rentals with all the information for each rental",
         responses = {
-            @ApiResponse(responseCode = "200", description = "List of rentals returned")
+            @ApiResponse(responseCode = "200", description = "List of rentals returned"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @GetMapping("/rentals")
@@ -66,7 +84,22 @@ public class RentalController {
         summary = "Get a rental by ID",
         description = "Retrieve the information of a rental by providing its ID",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Rental found")
+            @ApiResponse(responseCode = "200", description = "Rental found"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @GetMapping("/rentals/{rentalId}")
@@ -79,7 +112,22 @@ public class RentalController {
         summary = "Create a new rental",
         description = "Create a new rental by providing all the necessary information",
         responses = {
-            @ApiResponse(responseCode = "201", description = "Rental added")
+            @ApiResponse(responseCode = "201", description = "Rental added"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @PostMapping("/rentals")
@@ -111,7 +159,22 @@ public class RentalController {
         summary = "Update a rental",
         description = "Update a rental selected by ID by providing the information to update",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Rental updated")
+            @ApiResponse(responseCode = "200", description = "Rental updated"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @PutMapping("/rentals/{rentalId}")
