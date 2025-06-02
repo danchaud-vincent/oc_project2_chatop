@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chatop.api.dto.MessageDto;
 import com.chatop.api.dto.response.ResponseMessageDto;
 import com.chatop.api.dto.response.ResponseMessagesDto;
+import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.MessageService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +39,22 @@ public class MessagesController {
         summary = "Get all of the messages",
         description = "Get a list of all the messages",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Messages found")
+            @ApiResponse(responseCode = "200", description = "Messages found"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @GetMapping("/messages")
@@ -48,7 +66,22 @@ public class MessagesController {
         summary = "Send a new message",
         description = "Send a new message to a rental's owner",
         responses = {
-            @ApiResponse(responseCode = "201", description = "Message sent")
+            @ApiResponse(responseCode = "201", description = "Message sent"),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
         }
     )
     @PostMapping("/messages")
