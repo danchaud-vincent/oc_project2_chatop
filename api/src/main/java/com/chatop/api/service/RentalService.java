@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
 import com.chatop.api.dto.RentalUpdateDto;
+import com.chatop.api.exception.RentalNotFoundException;
+import com.chatop.api.exception.UserNotFoundException;
 import com.chatop.api.mapper.RentalMapper;
 import com.chatop.api.model.Rental;
 import com.chatop.api.model.User;
@@ -45,7 +47,7 @@ public class RentalService {
 
      public RentalDto getRentalById(int rentalId) {
         Rental rental = rentalRepository.findById(rentalId)
-            .orElseThrow(() -> new RuntimeException("Rental not found with ID: " + rentalId));
+            .orElseThrow(() -> new RentalNotFoundException("Rental not found with ID: " + rentalId));
 
         return rentalMapper.toDto(rental);
     }
@@ -56,7 +58,7 @@ public class RentalService {
 
         User user = userRepository
             .findById(ownerId)
-            .orElseThrow(() -> new RuntimeException("User not found with ID: " + ownerId));
+            .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + ownerId));
 
         Rental rental = rentalMapper.toEntity(rentalDto);
         rental.setOwner(user);
@@ -70,7 +72,7 @@ public class RentalService {
     public void updateRental(int rentalId, RentalUpdateDto rentalUpdatedDto) {
 
         Rental oldRental = rentalRepository.findById(rentalId)
-            .orElseThrow(() -> new RuntimeException("Rental not found with ID " + rentalId));
+            .orElseThrow(() -> new RentalNotFoundException("Rental not found with ID " + rentalId));
 
         Rental updatedRental = rentalMapper.updateEntity(oldRental, rentalUpdatedDto);
 
