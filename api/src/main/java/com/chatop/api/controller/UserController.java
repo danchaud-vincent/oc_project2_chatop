@@ -45,7 +45,13 @@ public class UserController {
         description = "Allows a user to log in and authenticate",
         responses = {
             @ApiResponse(responseCode = "200", description = "User logged in"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
@@ -73,8 +79,20 @@ public class UserController {
         description = "Allows a user to register and logging in",
         responses = {
             @ApiResponse(responseCode = "201", description = "User registered"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
-            @ApiResponse(responseCode = "409", description = "User already exists"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "409", 
+                description = "User already exists",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
@@ -102,8 +120,20 @@ public class UserController {
         description = "Allows you to retrieve all the information of the logged user",
         responses = {
             @ApiResponse(responseCode = "200", description = "Logged user's information"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
-            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "404", 
+                description = "User not found",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
@@ -132,8 +162,20 @@ public class UserController {
         description = "Retrieve a user's information by providing an ID",
         responses = {
             @ApiResponse(responseCode = "200", description = "User found"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
-            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "404", 
+                description = "User not found",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 

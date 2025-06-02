@@ -54,7 +54,13 @@ public class RentalController {
         description = "Retrieve the list of rentals with all the information for each rental",
         responses = {
             @ApiResponse(responseCode = "200", description = "List of rentals returned"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
@@ -86,8 +92,20 @@ public class RentalController {
         description = "Retrieve the information of a rental by providing its ID",
         responses = {
             @ApiResponse(responseCode = "200", description = "Rental found"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
-            @ApiResponse(responseCode = "404", description = "Rental not found"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "404", 
+                description = "Rental not found",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
@@ -116,7 +134,13 @@ public class RentalController {
         description = "Create a new rental by providing all the necessary information",
         responses = {
             @ApiResponse(responseCode = "201", description = "Rental added"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
@@ -164,8 +188,20 @@ public class RentalController {
         description = "Update a rental selected by ID by providing the information to update",
         responses = {
             @ApiResponse(responseCode = "200", description = "Rental updated"),
-            @ApiResponse(responseCode = "401", description = "Invalid credentials"),
-            @ApiResponse(responseCode = "404", description = "Rental not found"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "404", 
+                description = "Rental not found",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
             @ApiResponse(
                 responseCode = "400", 
                 description = "Bad request", 
