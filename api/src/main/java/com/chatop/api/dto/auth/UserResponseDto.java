@@ -12,23 +12,23 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Objet représentant un Utilisateur")
+@Schema(description = "user Object")
 public class UserResponseDto {
 
-    @Schema(description = "Identifiant unique de l'utilisateur")
+    @Schema(description = "Unique User ID")
     private Integer id;
    
-    @Schema(description = "Nom complet de l'utilisateur")
+    @Schema(description = "User name")
     private String name;
 
-    @Schema(description = "email de l'utilisateur")
+    @Schema(description = "User email")
     private String email;
 
-    @Schema(description = "date de création de l'utilisateur")
+    @Schema(description = "Creation date of the user")
     @JsonProperty("created_at")
     private Date createdAt;
 
-    @Schema(description = "date d'une mise à jour d'information")
+    @Schema(description = "Update date of the user information")
     @JsonProperty("updated_at")
     private Date updatedAt;
 

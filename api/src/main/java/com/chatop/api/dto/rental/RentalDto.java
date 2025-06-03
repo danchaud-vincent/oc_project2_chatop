@@ -13,42 +13,42 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Objet représentant une location")
+@Schema(description = "Rental object")
 public class RentalDto {
 
-    @Schema(description = "Identifiant unique de la location")
+    @Schema(description = "Unique rental ID")
     private Integer id;
 
-    @Schema(description = "Nom de la location")
+    @Schema(description = "Rental name")
     private String name;
 
-    @Schema(description = "Surface en mètres carrés de la location")
+    @Schema(description = "Square metres of rental space")
     private BigDecimal surface;
 
-    @Schema(description = "Prix de la location")
+    @Schema(description = "Rental price")
     private BigDecimal price;
 
-    @Schema(description = "Description supplémentaire sur la location")
+    @Schema(description = "Rental description")
     private String description;
 
-    @Schema(description = "image représentant la location")
+    @Schema(description = "Rental image url")
     private String picture;
 
-    @Schema(description = "image représentant la location")
+    @Schema(description = "Rental image name")
     private String pictureName;
 
-    @Schema(description = "image représentant la location")
+    @Schema(description = "Rental image type")
     private String pictureType;
 
-    @Schema(description = "Identifiant unique de l'utilisateur")
+    @Schema(description = "Owner ID")
     @JsonProperty("owner_id")
     private Integer ownerId;
 
-    @Schema(description = "Date de création de l'annonce")
+    @Schema(description = "Date of creation")
     @JsonProperty("created_at")
     private Date createdAt;
 
-    @Schema(description = "Date de mise à jour d'une information sur la location")
+    @Schema(description = "Update date of rental information")
     @JsonProperty("updated_at")
     private Date updatedat;
 
