@@ -3,6 +3,7 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chatop.api.dto.image.ImageDto;
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalCreateResponseDto;
 import com.chatop.api.dto.rental.RentalDto;
@@ -211,12 +212,11 @@ public class RentalController {
     @GetMapping("/rentals/images/{rentalId}")
     public ResponseEntity<byte[]> getImageByRentalId(@PathVariable("rentalId") Integer rentalId) {
         
-        RentalDto rental = rentalService.getRentalById(rentalId);
-        byte[] imageFile = rental.getPictureData();
+        ImageDto imageDto = rentalService.getImageRentalById(rentalId);
        
         return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf(rental.getPictureType()))
-                .body(imageFile);
+                .contentType(MediaType.valueOf(imageDto.getImageType()))
+                .body(imageDto.getImageData());
     }
     
 
