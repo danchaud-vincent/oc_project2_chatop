@@ -34,6 +34,15 @@ public class RentalDto {
     @Schema(description = "image représentant la location")
     private String picture;
 
+    @Schema(description = "image représentant la location")
+    private String pictureName;
+
+    @Schema(description = "image représentant la location")
+    private String pictureType;
+
+    @Schema(description = "image représentant la location")
+    private byte[] pictureData;
+
     @Schema(description = "Identifiant unique de l'utilisateur")
     @JsonProperty("owner_id")
     private Integer ownerId;
