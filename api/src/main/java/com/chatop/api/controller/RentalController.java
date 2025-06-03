@@ -2,7 +2,6 @@ package com.chatop.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
@@ -26,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -169,19 +169,26 @@ public class RentalController {
         
         // get the id of the current user logged in
         Integer ownerID = userService.getCurrentUser(authentication).getId();
-        
-        // build the url of the app, and then build the url for the image uploaded
-        // to display the image with the imageController
-        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        String pictureUrl = baseUrl + "/api/uploads/images/" + imageFile.getOriginalFilename();
 
-        RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID, pictureUrl);
+        RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID);
         
         rentalService.addRental(newRental, imageFile);
       
         return new ResponseEntity<ResponseRentalDto>(new ResponseRentalDto("Rental created"), HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/rentals/images/{rentalId}")
+    public ResponseEntity<byte[]> getImageByRentalId(@PathVariable("rentalId") Integer rentalId) {
+        
+        RentalDto rental = rentalService.getRentalById(rentalId);
+        byte[] imageFile = rental.getPictureData();
+       
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf(rental.getPictureType()))
+                .body(imageFile);
+    }
+    
 
     @Operation(
         summary = "Update a rental",
