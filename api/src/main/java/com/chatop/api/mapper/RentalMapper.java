@@ -1,6 +1,10 @@
 package com.chatop.api.mapper;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
@@ -19,7 +23,12 @@ public class RentalMapper {
         rentalDto.setSurface(rental.getSurface());
         rentalDto.setPrice(rental.getPrice());
         rentalDto.setDescription(rental.getDescription());
+        
         rentalDto.setPicture(rental.getPicture());
+        rentalDto.setPictureName(rental.getPictureName());
+        rentalDto.setPictureType(rental.getPictureType());
+        rentalDto.setPictureData(rental.getPictureData());
+
         rentalDto.setOwnerId(rental.getOwner().getId());
         rentalDto.setCreatedAt(rental.getCreatedAt());
         rentalDto.setUpdatedat(rental.getUpdatedAt());
@@ -27,15 +36,17 @@ public class RentalMapper {
         return rentalDto;
     }
 
-    public Rental toEntity(RentalCreateDto rentalDto){
+    public Rental toEntity(RentalCreateDto rentalDto, MultipartFile imageFile) throws IOException{
         
         Rental rental = new Rental();
 
         rental.setName(rentalDto.getName());
-        rental.setDescription(rentalDto.getDescription());
         rental.setSurface(rentalDto.getSurface());
         rental.setPrice(rentalDto.getPrice());
-        rental.setPicture(rentalDto.getPicture());
+        rental.setDescription(rentalDto.getDescription());
+        rental.setPictureName(imageFile.getOriginalFilename());
+        rental.setPictureType(imageFile.getContentType());
+        rental.setPictureData(imageFile.getBytes());
         
         return rental;
     }
