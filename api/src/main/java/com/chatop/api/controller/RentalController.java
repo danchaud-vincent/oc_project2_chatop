@@ -223,11 +223,11 @@ public class RentalController {
     public ResponseEntity<ResponseRentalDto> updateRental(
         @PathVariable int rentalId, 
         @RequestParam("name") String name,
-        @RequestParam("surface") String surface,
+        @RequestParam("surface") BigDecimal surface,
         @RequestParam("price") BigDecimal price,
         @RequestParam("description") String description) {
 
-        RentalUpdateDto rentalUpdatedDto = new RentalUpdateDto(name, price, price, description);
+        RentalUpdateDto rentalUpdatedDto = new RentalUpdateDto(name, surface, price, description);
        
         rentalService.updateRental(rentalId, rentalUpdatedDto);
 
