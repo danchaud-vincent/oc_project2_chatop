@@ -5,8 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
+import com.chatop.api.dto.rental.RentalResponseDto;
 import com.chatop.api.dto.rental.RentalUpdateRequestDto;
-import com.chatop.api.dto.rental.ResponseRentalDto;
 import com.chatop.api.dto.rental.ResponseRentalsDto;
 import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.RentalService;
@@ -159,7 +159,7 @@ public class RentalController {
         }
     )
     @PostMapping("/rentals")
-    public ResponseEntity<ResponseRentalDto> addRental(
+    public ResponseEntity<RentalResponseDto> addRental(
         @RequestParam("name") String name,
         @RequestParam("surface") BigDecimal surface,
         @RequestParam("price") BigDecimal price,
@@ -174,7 +174,7 @@ public class RentalController {
         
         rentalService.addRental(newRental, imageFile);
       
-        return new ResponseEntity<ResponseRentalDto>(new ResponseRentalDto("Rental created"), HttpStatus.CREATED);
+        return new ResponseEntity<RentalResponseDto>(new RentalResponseDto("Rental created"), HttpStatus.CREATED);
     }
 
 
@@ -227,7 +227,7 @@ public class RentalController {
         }
     )
     @PutMapping("/rentals/{rentalId}")
-    public ResponseEntity<ResponseRentalDto> updateRental(
+    public ResponseEntity<RentalResponseDto> updateRental(
         @PathVariable int rentalId, 
         @RequestParam("name") String name,
         @RequestParam("surface") BigDecimal surface,
@@ -238,6 +238,6 @@ public class RentalController {
        
         rentalService.updateRental(rentalId, rentalUpdatedDto);
 
-        return new ResponseEntity<ResponseRentalDto>(new ResponseRentalDto("Rental updated"), HttpStatus.OK);
+        return new ResponseEntity<RentalResponseDto>(new RentalResponseDto("Rental updated"), HttpStatus.OK);
     }
 }
