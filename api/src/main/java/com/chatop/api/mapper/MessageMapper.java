@@ -2,13 +2,13 @@ package com.chatop.api.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.chatop.api.dto.MessageDto;
+import com.chatop.api.dto.message.MessageRequestDto;
 import com.chatop.api.model.Message;
 
 @Component
 public class MessageMapper {
 
-    public Message toEntity(MessageDto messageDto){
+    public Message toEntity(MessageRequestDto messageDto){
 
         Message messageEntity = new Message();
         messageEntity.setRentalId(messageDto.getRentalId());
@@ -19,9 +19,9 @@ public class MessageMapper {
 
     }
 
-    public MessageDto toDto(Message messageEntity){
+    public MessageRequestDto toDto(Message messageEntity){
 
-        MessageDto messageDto = new MessageDto();
+        MessageRequestDto messageDto = new MessageRequestDto();
         messageDto.setMessage(messageEntity.getMessage());
         messageDto.setRentalId(messageEntity.getRentalId());
         messageDto.setUserId(messageEntity.getUserId());
