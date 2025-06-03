@@ -3,11 +3,11 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chatop.api.dto.RentalCreateDto;
-import com.chatop.api.dto.RentalDto;
-import com.chatop.api.dto.RentalUpdateDto;
-import com.chatop.api.dto.response.ResponseRentalDto;
-import com.chatop.api.dto.response.ResponseRentalsDto;
+import com.chatop.api.dto.rental.RentalCreateDto;
+import com.chatop.api.dto.rental.RentalDto;
+import com.chatop.api.dto.rental.RentalUpdateDto;
+import com.chatop.api.dto.rental.ResponseRentalDto;
+import com.chatop.api.dto.rental.ResponseRentalsDto;
 import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.RentalService;
 import com.chatop.api.service.UserService;

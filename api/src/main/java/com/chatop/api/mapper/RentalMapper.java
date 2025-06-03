@@ -5,9 +5,9 @@ import java.io.IOException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chatop.api.dto.RentalCreateDto;
-import com.chatop.api.dto.RentalDto;
-import com.chatop.api.dto.RentalUpdateDto;
+import com.chatop.api.dto.rental.RentalCreateDto;
+import com.chatop.api.dto.rental.RentalDto;
+import com.chatop.api.dto.rental.RentalUpdateDto;
 import com.chatop.api.model.Rental;
 
 @Component

@@ -1,4 +1,4 @@
-package com.chatop.api.dto;
+package com.chatop.api.dto.rental;
 
 import java.math.BigDecimal;
 import java.util.Date;

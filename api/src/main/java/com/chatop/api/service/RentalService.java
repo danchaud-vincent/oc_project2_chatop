@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.chatop.api.dto.RentalCreateDto;
-import com.chatop.api.dto.RentalDto;
-import com.chatop.api.dto.RentalUpdateDto;
+import com.chatop.api.dto.rental.RentalCreateDto;
+import com.chatop.api.dto.rental.RentalDto;
+import com.chatop.api.dto.rental.RentalUpdateDto;
 import com.chatop.api.exception.RentalNotFoundException;
 import com.chatop.api.exception.UserNotFoundException;
 import com.chatop.api.mapper.RentalMapper;
