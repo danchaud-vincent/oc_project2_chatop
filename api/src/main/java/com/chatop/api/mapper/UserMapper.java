@@ -1,17 +1,16 @@
 package com.chatop.api.mapper;
 
 import org.springframework.stereotype.Component;
-
-import com.chatop.api.dto.UserDto;
+import com.chatop.api.dto.auth.UserResponseDto;
 import com.chatop.api.model.User;
 
 @Component
 public class UserMapper {
 
 
-    public UserDto toDto(User user){
+    public UserResponseDto toDto(User user){
 
-        UserDto userDto = new UserDto();
+        UserResponseDto userDto = new UserResponseDto();
         userDto.setId(user.getId());
         userDto.setName(user.getName());
         userDto.setEmail(user.getEmail());

@@ -9,10 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.chatop.api.dto.UserDto;
 import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
+import com.chatop.api.dto.auth.UserResponseDto;
 import com.chatop.api.exception.InvalidCredentialsException;
 import com.chatop.api.exception.UserAlreadyExistsException;
 import com.chatop.api.exception.UserNotFoundException;
@@ -78,7 +78,7 @@ public class UserService {
         return authenticate(authRequest);
     }
 
-    public UserDto getCurrentUser(Authentication authentication) {
+    public UserResponseDto getCurrentUser(Authentication authentication) {
 
         User currentUser = userRepository.findByEmail(authentication.getName()).orElseThrow(() ->
             new UserNotFoundException("User not found")
@@ -87,7 +87,7 @@ public class UserService {
         return userMapper.toDto(currentUser);
     }
 
-    public UserDto getUserById(Integer userId) {
+    public UserResponseDto getUserById(Integer userId) {
         
         User user = userRepository.findById(userId).orElseThrow(() ->
             new UserNotFoundException(String.format("User with the id '%s' not found", userId.toString()))

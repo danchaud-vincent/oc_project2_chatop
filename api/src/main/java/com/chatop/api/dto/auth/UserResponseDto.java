@@ -1,4 +1,4 @@
-package com.chatop.api.dto;
+package com.chatop.api.dto.auth;
 
 import java.util.Date;
 
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Objet représentant un Utilisateur")
-public class UserDto {
+public class UserResponseDto {
 
     @Schema(description = "Identifiant unique de l'utilisateur")
     private Integer id;

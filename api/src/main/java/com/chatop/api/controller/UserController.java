@@ -2,10 +2,10 @@ package com.chatop.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chatop.api.dto.UserDto;
 import com.chatop.api.dto.auth.AuthRequestDto;
 import com.chatop.api.dto.auth.AuthResponseDto;
 import com.chatop.api.dto.auth.RegisterRequestDto;
+import com.chatop.api.dto.auth.UserResponseDto;
 import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.UserService;
 
@@ -152,8 +152,8 @@ public class UserController {
         }
     )
     @GetMapping("/auth/me")
-    public ResponseEntity<UserDto> getCurrentUser(Authentication authentication) {
-        return new ResponseEntity<UserDto>(userService.getCurrentUser(authentication), HttpStatus.OK);
+    public ResponseEntity<UserResponseDto> getCurrentUser(Authentication authentication) {
+        return new ResponseEntity<UserResponseDto>(userService.getCurrentUser(authentication), HttpStatus.OK);
     }
 
 
@@ -194,8 +194,8 @@ public class UserController {
         }
     )
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserDto> getUser(@PathVariable Integer userId) {
-        return new ResponseEntity<UserDto>(userService.getUserById(userId), HttpStatus.OK);
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable Integer userId) {
+        return new ResponseEntity<UserResponseDto>(userService.getUserById(userId), HttpStatus.OK);
     }
     
 }
