@@ -96,7 +96,8 @@ public class RentalService {
     }
 
     public ImageDto getImageRentalById(Integer rentalId) {
-        RentalDto rental = getRentalById(rentalId);
+        Rental rental = rentalRepository.findById(rentalId)
+            .orElseThrow(() -> new RentalNotFoundException("Rental not found with ID: " + rentalId));
 
         ImageDto imageDto = new ImageDto(
             rental.getPictureName(), 
