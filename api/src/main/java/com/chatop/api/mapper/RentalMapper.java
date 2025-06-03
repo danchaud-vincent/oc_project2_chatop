@@ -23,6 +23,7 @@ public class RentalMapper {
         rentalDto.setPrice(rental.getPrice());
         rentalDto.setDescription(rental.getDescription());
         
+        rentalDto.setPicture(rental.getPicture());
         rentalDto.setPictureName(rental.getPictureName());
         rentalDto.setPictureType(rental.getPictureType());
 

@@ -32,6 +32,9 @@ public class RentalDto {
     private String description;
 
     @Schema(description = "image représentant la location")
+    private String picture;
+
+    @Schema(description = "image représentant la location")
     private String pictureName;
 
     @Schema(description = "image représentant la location")
