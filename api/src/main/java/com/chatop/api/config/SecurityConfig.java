@@ -31,7 +31,7 @@ public class SecurityConfig {
         return http.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
                     .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
-                    .requestMatchers("/api/uploads/images/**").permitAll()
+                    .requestMatchers("/api/rentals/images/**").permitAll()
                     .requestMatchers("/v3/api-docs/**").permitAll()
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .anyRequest().authenticated())
