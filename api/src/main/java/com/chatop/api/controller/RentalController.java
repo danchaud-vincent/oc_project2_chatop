@@ -7,7 +7,7 @@ import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
 import com.chatop.api.dto.rental.RentalResponseDto;
 import com.chatop.api.dto.rental.RentalUpdateRequestDto;
-import com.chatop.api.dto.rental.ResponseRentalsDto;
+import com.chatop.api.dto.rental.RentalsResponseDto;
 import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.RentalService;
 import com.chatop.api.service.UserService;
@@ -79,11 +79,11 @@ public class RentalController {
         }
     )
     @GetMapping("/rentals")
-    public ResponseEntity<ResponseRentalsDto> getRentals(){
+    public ResponseEntity<RentalsResponseDto> getRentals(){
 
         List<RentalDto> rentals = rentalService.getRentals();
 
-        return new ResponseEntity<ResponseRentalsDto>(new ResponseRentalsDto(rentals), HttpStatus.OK);
+        return new ResponseEntity<RentalsResponseDto>(new RentalsResponseDto(rentals), HttpStatus.OK);
     }
 
 
