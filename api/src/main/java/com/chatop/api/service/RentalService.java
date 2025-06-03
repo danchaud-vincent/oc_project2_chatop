@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
@@ -28,7 +29,6 @@ public class RentalService {
     private final RentalRepository rentalRepository;
     private final UserRepository userRepository;
     private final RentalMapper rentalMapper;
-    private final ImageService imageService;
 
     public List<RentalDto> getRentals() {
 
@@ -45,7 +45,7 @@ public class RentalService {
         return rentalsDto;
     }
 
-     public RentalDto getRentalById(int rentalId) {
+    public RentalDto getRentalById(int rentalId) {
         Rental rental = rentalRepository.findById(rentalId)
             .orElseThrow(() -> new RentalNotFoundException("Rental not found with ID: " + rentalId));
 
@@ -60,13 +60,20 @@ public class RentalService {
             .findById(ownerId)
             .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + ownerId));
 
-        Rental rental = rentalMapper.toEntity(rentalDto);
+        Rental rental = rentalMapper.toEntity(rentalDto, imageFile);
         rental.setOwner(user);
 
-        // save the image in the uploads dir
-        imageService.saveImage(imageFile);
+        // saved the rental 
+        Rental savedRental = rentalRepository.save(rental);
 
-        rentalRepository.save(rental);
+        // generate the image endpoint of the rental based on its id;
+        Integer rentalId = savedRental.getId();
+        String pictureUrl = generatePictureUrl(rentalId);
+        savedRental.setPicture(pictureUrl);
+
+        // save the rental again with the url based on the rental id
+        rentalRepository.save(savedRental);
+        
     }
 
     public void updateRental(int rentalId, RentalUpdateDto rentalUpdatedDto) {
@@ -77,6 +84,14 @@ public class RentalService {
         Rental updatedRental = rentalMapper.updateEntity(oldRental, rentalUpdatedDto);
 
         rentalRepository.save(updatedRental);
+    }
+
+    private String generatePictureUrl(Integer rentalId){
+        // build the endpoint for the image of a rental selected by id
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+        String pictureUrl = baseUrl + "/api/rentals/images/" + rentalId;
+
+        return pictureUrl;
     }
 
 
