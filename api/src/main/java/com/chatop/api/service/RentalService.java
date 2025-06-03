@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.chatop.api.dto.image.ImageDto;
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
 import com.chatop.api.dto.rental.RentalUpdateRequestDto;
@@ -92,6 +93,18 @@ public class RentalService {
         String pictureUrl = baseUrl + "/api/rentals/images/" + rentalId;
 
         return pictureUrl;
+    }
+
+    public ImageDto getImageRentalById(Integer rentalId) {
+        RentalDto rental = getRentalById(rentalId);
+
+        ImageDto imageDto = new ImageDto(
+            rental.getPictureName(), 
+            rental.getPictureType(),
+            rental.getPictureData()
+        );
+
+        return imageDto;
     }
 
 
