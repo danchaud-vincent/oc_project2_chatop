@@ -4,9 +4,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
+import com.chatop.api.dto.rental.RentalCreateResponseDto;
 import com.chatop.api.dto.rental.RentalDto;
-import com.chatop.api.dto.rental.RentalResponseDto;
 import com.chatop.api.dto.rental.RentalUpdateRequestDto;
+import com.chatop.api.dto.rental.RentalUpdateResponseDto;
 import com.chatop.api.dto.rental.RentalsResponseDto;
 import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.RentalService;
@@ -159,7 +160,7 @@ public class RentalController {
         }
     )
     @PostMapping("/rentals")
-    public ResponseEntity<RentalResponseDto> addRental(
+    public ResponseEntity<RentalCreateResponseDto> addRental(
         @RequestParam("name") String name,
         @RequestParam("surface") BigDecimal surface,
         @RequestParam("price") BigDecimal price,
@@ -174,7 +175,7 @@ public class RentalController {
         
         rentalService.addRental(newRental, imageFile);
       
-        return new ResponseEntity<RentalResponseDto>(new RentalResponseDto("Rental created"), HttpStatus.CREATED);
+        return new ResponseEntity<RentalCreateResponseDto>(new RentalCreateResponseDto("Rental created"), HttpStatus.CREATED);
     }
 
 
@@ -256,7 +257,7 @@ public class RentalController {
         }
     )
     @PutMapping("/rentals/{rentalId}")
-    public ResponseEntity<RentalResponseDto> updateRental(
+    public ResponseEntity<RentalUpdateResponseDto> updateRental(
         @PathVariable int rentalId, 
         @RequestParam("name") String name,
         @RequestParam("surface") BigDecimal surface,
@@ -267,6 +268,6 @@ public class RentalController {
        
         rentalService.updateRental(rentalId, rentalUpdatedDto);
 
-        return new ResponseEntity<RentalResponseDto>(new RentalResponseDto("Rental updated"), HttpStatus.OK);
+        return new ResponseEntity<RentalUpdateResponseDto>(new RentalUpdateResponseDto("Rental updated"), HttpStatus.OK);
     }
 }
