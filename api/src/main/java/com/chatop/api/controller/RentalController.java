@@ -3,7 +3,7 @@ package com.chatop.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chatop.api.dto.rental.RentalCreateDto;
+import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
 import com.chatop.api.dto.rental.RentalUpdateDto;
 import com.chatop.api.dto.rental.ResponseRentalDto;
@@ -170,7 +170,7 @@ public class RentalController {
         // get the id of the current user logged in
         Integer ownerID = userService.getCurrentUser(authentication).getId();
 
-        RentalCreateDto newRental = new RentalCreateDto(name, surface, price, description, ownerID);
+        RentalCreateRequestDto newRental = new RentalCreateRequestDto(name, surface, price, description, ownerID);
         
         rentalService.addRental(newRental, imageFile);
       

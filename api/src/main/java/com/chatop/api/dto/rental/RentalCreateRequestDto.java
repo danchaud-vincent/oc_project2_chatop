@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RentalCreateDto {
+public class RentalCreateRequestDto {
 
     private String name;
     private BigDecimal surface;

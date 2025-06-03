@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chatop.api.dto.rental.RentalCreateDto;
+import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
 import com.chatop.api.dto.rental.RentalUpdateDto;
 import com.chatop.api.model.Rental;
@@ -35,7 +35,7 @@ public class RentalMapper {
         return rentalDto;
     }
 
-    public Rental toEntity(RentalCreateDto rentalDto, MultipartFile imageFile) throws IOException{
+    public Rental toEntity(RentalCreateRequestDto rentalDto, MultipartFile imageFile) throws IOException{
         
         Rental rental = new Rental();
 

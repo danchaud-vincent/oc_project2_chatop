@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.chatop.api.dto.rental.RentalCreateDto;
+import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
 import com.chatop.api.dto.rental.RentalUpdateDto;
 import com.chatop.api.exception.RentalNotFoundException;
@@ -52,7 +52,7 @@ public class RentalService {
         return rentalMapper.toDto(rental);
     }
 
-    public void addRental(RentalCreateDto rentalDto, MultipartFile imageFile) throws IOException {
+    public void addRental(RentalCreateRequestDto rentalDto, MultipartFile imageFile) throws IOException {
 
         Integer ownerId = rentalDto.getOwnerId();
 

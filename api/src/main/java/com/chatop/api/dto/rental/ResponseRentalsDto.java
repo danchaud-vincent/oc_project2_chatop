@@ -1,8 +1,6 @@
-package com.chatop.api.dto.response;
+package com.chatop.api.dto.rental;
 
 import java.util.List;
-
-import com.chatop.api.dto.RentalDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
