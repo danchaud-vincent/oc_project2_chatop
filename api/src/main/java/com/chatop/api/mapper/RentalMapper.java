@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
-import com.chatop.api.dto.rental.RentalUpdateDto;
+import com.chatop.api.dto.rental.RentalUpdateRequestDto;
 import com.chatop.api.model.Rental;
 
 @Component
@@ -51,7 +51,7 @@ public class RentalMapper {
     }
 
 
-    public Rental updateEntity(Rental rental, RentalUpdateDto rentalUpdatedDto){
+    public Rental updateEntity(Rental rental, RentalUpdateRequestDto rentalUpdatedDto){
 
         rental.setName(rentalUpdatedDto.getName());
         rental.setSurface(rentalUpdatedDto.getSurface()); 

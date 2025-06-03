@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
-import com.chatop.api.dto.rental.RentalUpdateDto;
+import com.chatop.api.dto.rental.RentalUpdateRequestDto;
 import com.chatop.api.exception.RentalNotFoundException;
 import com.chatop.api.exception.UserNotFoundException;
 import com.chatop.api.mapper.RentalMapper;
@@ -76,7 +76,7 @@ public class RentalService {
         
     }
 
-    public void updateRental(int rentalId, RentalUpdateDto rentalUpdatedDto) {
+    public void updateRental(int rentalId, RentalUpdateRequestDto rentalUpdatedDto) {
 
         Rental oldRental = rentalRepository.findById(rentalId)
             .orElseThrow(() -> new RentalNotFoundException("Rental not found with ID " + rentalId));

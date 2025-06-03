@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.chatop.api.dto.rental.RentalCreateRequestDto;
 import com.chatop.api.dto.rental.RentalDto;
-import com.chatop.api.dto.rental.RentalUpdateDto;
+import com.chatop.api.dto.rental.RentalUpdateRequestDto;
 import com.chatop.api.dto.rental.ResponseRentalDto;
 import com.chatop.api.dto.rental.ResponseRentalsDto;
 import com.chatop.api.model.ErrorResponse;
@@ -234,7 +234,7 @@ public class RentalController {
         @RequestParam("price") BigDecimal price,
         @RequestParam("description") String description) {
 
-        RentalUpdateDto rentalUpdatedDto = new RentalUpdateDto(name, surface, price, description);
+        RentalUpdateRequestDto rentalUpdatedDto = new RentalUpdateRequestDto(name, surface, price, description);
        
         rentalService.updateRental(rentalId, rentalUpdatedDto);
 
