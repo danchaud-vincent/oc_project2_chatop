@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatop.api.dto.message.MessageRequestDto;
-import com.chatop.api.dto.response.ResponseMessageDto;
+import com.chatop.api.dto.message.ResponseMessageDto;
 import com.chatop.api.model.ErrorResponse;
 import com.chatop.api.service.MessageService;
 

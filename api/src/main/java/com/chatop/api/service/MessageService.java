@@ -1,13 +1,9 @@
 package com.chatop.api.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.message.MessageRequestDto;
-import com.chatop.api.dto.response.ResponseMessageDto;
-import com.chatop.api.dto.response.ResponseMessagesDto;
+import com.chatop.api.dto.message.ResponseMessageDto;
 import com.chatop.api.mapper.MessageMapper;
 import com.chatop.api.model.Message;
 import com.chatop.api.repository.MessageRepository;

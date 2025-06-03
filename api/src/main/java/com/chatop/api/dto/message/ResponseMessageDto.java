@@ -1,4 +1,4 @@
-package com.chatop.api.dto.response;
+package com.chatop.api.dto.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
