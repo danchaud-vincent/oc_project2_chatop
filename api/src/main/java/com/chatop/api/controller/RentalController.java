@@ -178,6 +178,35 @@ public class RentalController {
     }
 
 
+    @Operation(
+        summary = "Get the image of a rental",
+        description = "Get the image of a rental selected by ID",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Image found"),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Bad request", 
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )),
+            @ApiResponse(
+                responseCode = "500",
+                description = "Internal server error",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorResponse.class)
+                )
+            )
+        }
+    )
     @GetMapping("/rentals/images/{rentalId}")
     public ResponseEntity<byte[]> getImageByRentalId(@PathVariable("rentalId") Integer rentalId) {
         
