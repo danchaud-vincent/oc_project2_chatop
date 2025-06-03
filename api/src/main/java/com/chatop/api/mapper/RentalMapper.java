@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.chatop.api.dto.RentalCreateDto;
 import com.chatop.api.dto.RentalDto;
