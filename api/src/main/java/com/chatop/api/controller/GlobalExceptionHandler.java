@@ -35,11 +35,11 @@ public class GlobalExceptionHandler {
     }
 
     // handle 500 - Internal server error
-
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleInternalError(Exception ex){
         ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), String.format("Internal server error: %s", ex.getMessage()));
 
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ErrorResponse>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     // Exceptions handler for users
@@ -59,6 +59,7 @@ public class GlobalExceptionHandler {
     }
 
     // Exceptions handler for rentals
+    @ExceptionHandler(RentalNotFoundException.class)
     public ResponseEntity<String> handleNotFoundRentalException(RentalNotFoundException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
