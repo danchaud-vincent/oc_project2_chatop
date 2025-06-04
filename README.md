@@ -76,6 +76,11 @@ mvn spring-boot:run
 - Launch Front-end :
 > ng serve --open
 
+
+**Other :**
+
+A picture of a location is available in the folder ```api/src/main/resources/static/images```.
+
 ## API Documentation
 
 The API is documented with Swagger.
