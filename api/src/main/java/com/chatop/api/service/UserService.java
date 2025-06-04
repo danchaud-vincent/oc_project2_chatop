@@ -33,7 +33,7 @@ public class UserService {
     public AuthResponseDto authenticate(AuthRequestDto authRequestDto){
 
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                     authRequestDto.getEmail(), 
                     authRequestDto.getPassword()
