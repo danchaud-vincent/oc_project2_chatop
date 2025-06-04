@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -263,11 +264,11 @@ public class RentalController {
     )
     @PutMapping("/rentals/{rentalId}")
     public ResponseEntity<RentalUpdateResponseDto> updateRental(
-        @PathVariable int rentalId, 
-        @RequestParam("name") String name,
-        @RequestParam("surface") BigDecimal surface,
-        @RequestParam("price") BigDecimal price,
-        @RequestParam("description") String description) {
+        @PathVariable @Min(1) Integer rentalId, 
+        @RequestParam("name") @NotBlank String name,
+        @RequestParam("surface") @NotNull BigDecimal surface,
+        @RequestParam("price") @NotNull BigDecimal price,
+        @RequestParam("description") @NotBlank String description) {
 
         RentalUpdateRequestDto rentalUpdatedDto = new RentalUpdateRequestDto(name, surface, price, description);
        
