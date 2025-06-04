@@ -22,7 +22,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
@@ -166,13 +165,13 @@ public class RentalController {
             )
         }
     )
-    @PostMapping("/rentals")
+    @PostMapping(value = "/rentals", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<RentalCreateResponseDto> addRental(
         @RequestParam("name") @NotBlank String name,
-        @RequestParam("surface") @NotBlank BigDecimal surface,
-        @RequestParam("price") @NotBlank BigDecimal price,
+        @RequestParam("surface") @NotNull BigDecimal surface,
+        @RequestParam("price") @NotNull BigDecimal price,
         @RequestParam("description") @NotBlank String description,
-        @RequestParam("picture") @NotEmpty MultipartFile imageFile,
+        @RequestParam("picture") MultipartFile imageFile,
         Authentication authentication) throws IOException{
         
         // get the id of the current user logged in
