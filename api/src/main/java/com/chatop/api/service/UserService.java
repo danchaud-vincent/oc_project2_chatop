@@ -64,13 +64,10 @@ public class UserService {
 
         userRepository.save(newUser);
 
-        // Authenticate the new user directly
-        AuthRequestDto authRequest = new AuthRequestDto(
-            registerRequest.getEmail(), 
-            registerRequest.getPassword()
-        );
-
-        return authenticate(authRequest);
+        // Generate a token
+        String token = jwtService.generateToken(newUser.getEmail());
+        
+        return new AuthResponseDto(token);
     }
 
     public UserResponseDto getCurrentUser(Authentication authentication) {
