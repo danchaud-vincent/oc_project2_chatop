@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.chatop.api.dto.auth.AuthRequestDto;
@@ -27,7 +26,6 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
     private final UserMapper userMapper;
@@ -62,10 +60,7 @@ public class UserService {
             throw new UserAlreadyExistsException(String.format("User with the email '%s' already exists.", email));
         }
 
-        User newUser = new User();
-        newUser.setEmail(registerRequest.getEmail());
-        newUser.setName(registerRequest.getName());
-        newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        User newUser = userMapper.toEntity(registerRequest);
 
         userRepository.save(newUser);
 
