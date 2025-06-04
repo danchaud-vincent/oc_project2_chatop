@@ -1,5 +1,7 @@
 package com.chatop.api.controller;
 
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -21,8 +23,20 @@ import jakarta.validation.ConstraintViolationException;
 public class GlobalExceptionHandler {
 
     // Handle 400 - Bad Request
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex){
+        String message = ex.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .map(error -> error.getField() + " : " + error.getDefaultMessage())
+            .collect(Collectors.joining("; "));
+        
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message);
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({
-        MethodArgumentNotValidException.class,
         ConstraintViolationException.class,
         MethodArgumentTypeMismatchException.class,
         MissingServletRequestParameterException.class,
