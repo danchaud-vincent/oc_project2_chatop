@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +58,7 @@ public class MessagesController {
     )
     @PostMapping("/messages")
     public ResponseEntity<MessageResponseDto> sendMessage(
-        @RequestBody MessageRequestDto messageRequest) {
+        @Valid @RequestBody MessageRequestDto messageRequest) {
         
         MessageResponseDto responseMessageDto = messageService.sendMessage(messageRequest);
         
