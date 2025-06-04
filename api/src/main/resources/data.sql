@@ -12,8 +12,11 @@ CREATE TABLE `RENTALS` (
   `name` varchar(255),
   `surface` numeric,
   `price` numeric,
-  `picture` varchar(255),
   `description` varchar(2000),
+  `picture` varchar(255),
+  `picture_name` varchar(255),
+  `picture_type` varchar(255),
+  `picture_data` LONGBLOB,
   `owner_id` integer NOT NULL,
   `created_at` timestamp,
   `updated_at` timestamp
