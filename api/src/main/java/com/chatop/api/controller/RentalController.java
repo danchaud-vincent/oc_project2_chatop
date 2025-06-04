@@ -20,6 +20,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -30,6 +33,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +48,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
+@Validated
 @Tag(name = "Rentals", description = "Methods on rentals")
 @RequestMapping("/api")
 public class RentalController {
@@ -126,7 +131,7 @@ public class RentalController {
         }
     )
     @GetMapping("/rentals/{rentalId}")
-    public ResponseEntity<RentalDto> getRentalById(@PathVariable int rentalId) {
+    public ResponseEntity<RentalDto> getRentalById(@PathVariable @Min(1) Integer rentalId) {
         return new ResponseEntity<RentalDto>(rentalService.getRentalById(rentalId), HttpStatus.OK);
     }
 
@@ -162,11 +167,11 @@ public class RentalController {
     )
     @PostMapping("/rentals")
     public ResponseEntity<RentalCreateResponseDto> addRental(
-        @RequestParam("name") String name,
-        @RequestParam("surface") BigDecimal surface,
-        @RequestParam("price") BigDecimal price,
-        @RequestParam("description") String description,
-        @RequestParam("picture") MultipartFile imageFile,
+        @RequestParam("name") @NotBlank String name,
+        @RequestParam("surface") @NotBlank BigDecimal surface,
+        @RequestParam("price") @NotBlank BigDecimal price,
+        @RequestParam("description") @NotBlank String description,
+        @RequestParam("picture") @NotEmpty MultipartFile imageFile,
         Authentication authentication) throws IOException{
         
         // get the id of the current user logged in
@@ -210,7 +215,7 @@ public class RentalController {
         }
     )
     @GetMapping("/rentals/images/{rentalId}")
-    public ResponseEntity<byte[]> getImageByRentalId(@PathVariable("rentalId") Integer rentalId) {
+    public ResponseEntity<byte[]> getImageByRentalId(@PathVariable("rentalId") @Min(1) Integer rentalId) {
         
         ImageDto imageDto = rentalService.getImageRentalById(rentalId);
        
