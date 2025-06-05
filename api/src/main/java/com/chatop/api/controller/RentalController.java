@@ -174,6 +174,15 @@ public class RentalController {
         @RequestParam("picture") MultipartFile imageFile,
         Authentication authentication) throws IOException{
         
+        double maxSize = 2e6;
+        System.out.println(imageFile.getSize());
+
+        // check the size of the image
+        if (imageFile.getSize() > maxSize){
+            System.out.println("IMAGE TOO BIG");
+            return new ResponseEntity<RentalCreateResponseDto>(new RentalCreateResponseDto("Image Size too big"), HttpStatus.BAD_REQUEST);
+        }
+        
         // get the id of the current user logged in
         Integer ownerID = userService.getCurrentUser(authentication).getId();
 
