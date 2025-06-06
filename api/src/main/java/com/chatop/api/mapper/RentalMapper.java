@@ -1,0 +1,63 @@
+package com.chatop.api.mapper;
+
+import java.io.IOException;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.chatop.api.dto.rental.RentalCreateRequestDto;
+import com.chatop.api.dto.rental.RentalDto;
+import com.chatop.api.dto.rental.RentalUpdateRequestDto;
+import com.chatop.api.model.Rental;
+
+@Component
+public class RentalMapper {
+
+
+    public RentalDto toDto(Rental rental){
+        RentalDto rentalDto = new RentalDto();
+
+        rentalDto.setId(rental.getId());
+        rentalDto.setName(rental.getName());
+        rentalDto.setSurface(rental.getSurface());
+        rentalDto.setPrice(rental.getPrice());
+        rentalDto.setDescription(rental.getDescription());
+        
+        rentalDto.setPicture(rental.getPicture());
+        rentalDto.setPictureName(rental.getPictureName());
+        rentalDto.setPictureType(rental.getPictureType());
+
+        rentalDto.setOwnerId(rental.getOwner().getId());
+        rentalDto.setCreatedAt(rental.getCreatedAt());
+        rentalDto.setUpdatedat(rental.getUpdatedAt());
+
+        return rentalDto;
+    }
+
+    public Rental toEntity(RentalCreateRequestDto rentalDto, MultipartFile imageFile) throws IOException{
+        
+        Rental rental = new Rental();
+
+        rental.setName(rentalDto.getName());
+        rental.setSurface(rentalDto.getSurface());
+        rental.setPrice(rentalDto.getPrice());
+        rental.setDescription(rentalDto.getDescription());
+        rental.setPictureName(imageFile.getOriginalFilename());
+        rental.setPictureType(imageFile.getContentType());
+        rental.setPictureData(imageFile.getBytes());
+        
+        return rental;
+    }
+
+
+    public Rental updateEntity(Rental rental, RentalUpdateRequestDto rentalUpdatedDto){
+
+        rental.setName(rentalUpdatedDto.getName());
+        rental.setSurface(rentalUpdatedDto.getSurface()); 
+        rental.setPrice(rentalUpdatedDto.getPrice());
+        rental.setDescription(rentalUpdatedDto.getDescription());
+
+        return rental;
+    }
+
+}
